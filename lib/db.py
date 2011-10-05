@@ -1,9 +1,10 @@
-import settings_run
-MG_HOST = settings_run.mongo_host
-MG_PORT = settings_run.mongo_port
-MG_READ_HOST = settings_run.mongo_host
-MG_READ_PORT = settings_run.mongo_port
-
+import settings_run as settings
+import pymongo
+MG_HOST = settings.mongo_host
+MG_PORT = settings.mongo_port
+MG_READ_HOST = settings.mongo_host
+MG_READ_PORT = settings.mongo_port
+MG_NAME = settings.mongo_name
 
 def get_db_update():
     _db = pymongo.Connection(MG_HOST, MG_PORT)[MG_NAME]
@@ -15,7 +16,7 @@ def get_db_read():
     return _db
 
 
-db_update = get_db()
+db_update = get_db_update()
 db = get_db_read()
 
 
