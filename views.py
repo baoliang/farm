@@ -1,9 +1,8 @@
-from flask import Flask
-app = Flask (__name__)
-
+from flaskext.mako import render_template
+from app import app
 @app.route('/')
 def index():
     '''
     @todo:index page:
     '''
-    return "i 'm a bad girliv2.0"
+    return render_template('index.html')
