@@ -12,7 +12,7 @@ def get_db_update():
 
 
 def get_db_read():
-    _db = pymongo.Connection(MG_READ_HOST, MG_READ_PORT)
+    _db = pymongo.Connection(MG_READ_HOST, MG_READ_PORT)[MG_NAME]
     return _db
 
 

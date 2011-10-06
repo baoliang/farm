@@ -9,4 +9,12 @@ def vertify_user(uid, password,vertify_code = '' ):
           return True
        else:
           return False    
-    return False
+    else:
+        return False
+	
+	
+def check_only_user(uid):
+    if find_one_collection('users', {'_id': uid}):
+        return False
+    else:
+        return True

@@ -1,84 +1,47 @@
 <html>
 <head>
 <title>农牧鱼林网</title>
-    <%block name="public_css">
-      <link href="/static/css/farm.css" rel="stylesheet" media="screen" type="text/css" />
+     
+    <link href="/static/css/farm.css" rel="stylesheet" media="screen" type="text/css" />
+    <%block name="css">
     </%block>
 </head>
 <body>
     <div id="wraper">
-         <div id="topbar">
-             <div class="w pos">
-                 <div class="bar_left">
+        <div id="topbar">
+            <div class="w pos">
+                <div class="bar_left">
                      <h2>北京</h2>
                      <span id="ipconfig">[<a href="http://www.58.com/index.htm" target="_self">切换城市</a>]</span>
                      <span class="gap">|</span>
-                     <span class="tuan">
-                         <a target="_blank" href="http://t.58.com/?utm_source=58.com_homeheader">58团购</a>
-                         <span id="tuanlist" class="c_999">：
-                             <a href="http://t.58.com/bj/3643439628546?ctr58=pos=front-tg/cate=NA/city=bj/id=3643439628546" title="仅358元！原价3888元BABY HOUSE儿童摄影套餐，拍一套送一套" style="display: none; " target="_blank">仅358元！原价3888元BABY HOUSE儿童摄影...</a>
-                         </span>
-                     </span>
-                  </div>
-                  <div class="bar_right">
-  
-             
-                  </div>
-                  <div id="login">
-                      <a href="/logint" target="_self"> 登录</a>
+                </div>
+                <div>
+                      <a href="/login" target="_self"> 登录</a>
                       <span class="gap">|</span>
-                      <a href="http://passport.58.com/reg/?city=bj" target="_self">注册</a>
-                  </div>
-                  <div id="sitemap" class="haschild">
-                      导航
-                      <span class="arrow"></span>
-                      <div id="sitemapBox" class="hc">
-                      <div class="maplist"> 
-                          <a href="http://bj.58.com/house.shtml">房产</a>：
-                          <a href="http://bj.58.com/zufang/">租房</a> &nbsp;
-                          <a href="http://bj.58.com/ershoufang/">买房</a> &nbsp;
-                          <a href="http://bj.58.com/duanzu/">短租</a>
-                          <br>
-                          <a href="http://bj.58.com/sale.shtml">二手</a>：
-                          <a href="http://bj.58.com/diannao/">电脑</a> &nbsp;
-                          <a href="http://bj.58.com/shouji/">手机</a> &nbsp;
-                          <a href="http://bj.58.com/jiadian/">家电</a> 
-                       </div>
-            	       <div class="mapfuc">
-                            <a href="http://t.58.com/?utm_source=58.com_homeheader" class="c_r">
-                                   同城团购&nbsp;&nbsp;&nbsp;每日一团»
-                            </a>
-                            <br>
-                            <a href="http://post.58.com/t/">免费发布</a> &nbsp;
-                            <a href="http://about.58.com/info/del-menu.html">删除信息</a><br>
-                            <a href="http://about.58.com/yinsibaohu.html?utm_source=top-navigation&amp;utm_medium=58call&amp;utm_campaign=link-click">58隐私保护助手</a><br>
-                            <a href="http://wap.58.com/wap.html">手机畅游58同城</a> <br>
-                            <a href="http://vip.58.com/product/index.html">58同城网邻通</a> <br>
-                            <a class="fduihua" href="http://about.58.com/">帮助中心</a>
-                       </div>	
-                       <i class="shadow"></i>
-                    </div>
-               </div>
-             </div>
-           </div>
-         </div>
-	 <div id='content'>
-              <%block name='content' />
-	 </div>
-        <div id="footer">
-  	    <div id="contact">
-		 <a href="/help" title="有问题请与58客服进行对话" class="fduihua">帮助中心</a>
-		 <a href="/delete" class="red">我要删除信息</a>
-                 |
- 		 <a href="/about">关于我们</a>
-		 |
-		 <a href="/contact">联系我们</a>
-		 |
-	         <a href="/ad">推广服务</a>
-		 |<a href="/">公司声明</a>
-		 <br>京公网安备xxxxxx号 <a href="http://www.miibeian.gov.cn/" style="color:#666">京ICP证xxxx</a>
-	    </div>
+                      <a href="/reg" target="_self">注册</a>
+                </div>
+            </div>
         </div>
+		<div id='content'>
+		<%block name='content' />
+		 </div>
+        <div id="footer">
+			<div id="contact">
+			 <a href="/help" title="有问题请与客服进行对话" class="fduihua">帮助中心</a>
+			 <a href="/delete" class="red">我要删除信息</a>
+					 |
+			 <a href="/about">关于我们</a>
+			 |
+			 <a href="/contact">联系我们</a>
+			 |
+				 <a href="/ad">推广服务</a>
+			 |<a href="/">公司声明</a>
+			
+			</div>
+			<div class="beian">
+				京公网安备xxxxxx号 <a href="http://www.miibeian.gov.cn/" style="color:#666">京ICP证xxxx</a>
+			</div>
+			</div>
     </div>
 </body>
 </html>

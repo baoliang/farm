@@ -13,5 +13,5 @@ def find_collection(collection, query):
     
 
 def find_one_collection(collection, query):
-    db[collection].find_one(query)
+    return db[collection].find_one(query)
     
