@@ -36,7 +36,15 @@ def login_user():
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    if vertify_user(
+        request.args.get('uid', ''),
+        request.args.get('password')
+    ):
+        session['uid'] = request.args.get('uid')
+    
+        return render_template('index.html')
+    else:
+        return render_template('login.html')
 	
 
 @app.route('/reg')
@@ -47,10 +55,14 @@ def reg():
 @app.route('/reg_user')
 def reg_user():
     '''
-    
-	'''
-    return render_template('reg.html')
-	
+    '''
+    res = reg_user(request.form) 
+    if res:
+       session['uid'] = request.form.get('uid')
+       return render_template('index.html', {'_id': request.form.get('_id', '')})
+    else:
+       return render_template('reg.html', {'_id': request.form.get('_id', '')})
+
 	
 @app.route('/reg')
 def check_user():
@@ -59,3 +71,7 @@ def check_user():
     else:
         return 'False'
 
+
+@app.route('/post_info'):
+def post_info():
+    create_info(request.form, session['uid']) 
