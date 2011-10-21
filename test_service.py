@@ -1,8 +1,8 @@
 #coding: utf-8
-from service.account_service import vertify_user
-from service.account_service import check_only_user
-from service.account_service import reg_user
-from service.account_service import create_info
+from service.account import vertify_user
+from service.account import check_only_user
+from service.account import reg_user
+from service.info import create_info
 from lib.db import db, db_update
 import unittest
 

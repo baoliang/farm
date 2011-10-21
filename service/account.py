@@ -1,9 +1,9 @@
-from service.crud_mongo import find_one_collection
+from lib.store import find_one
 from lib.db import db, db_update
 
 def vertify_user(uid, password,vertify_code = '' ):
  
-    user = find_one_collection('users', {'_id': uid})
+    user = find_one('users', {'_id': uid})
     if user:
        if user.get('pass', '') == password:
           return True
@@ -14,7 +14,7 @@ def vertify_user(uid, password,vertify_code = '' ):
 	
 	
 def check_only_user(uid):
-    if find_one_collection('users', {'_id': uid}):
+    if find_one('users', {'_id': uid}):
         return False
     else:
         return True
@@ -28,6 +28,3 @@ def reg_user(user):
         return False
 
 
-def create_info(info, uid):
-    info['uid'] = uid
-    db.info.insert(info)

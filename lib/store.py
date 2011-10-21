@@ -1,7 +1,8 @@
 from lib.db import db_update, db
 
-def update_collecotion(json, collection):
-    db_update[collection].update(json, )
+def update(query, data, collection, type='mongo'):
+    
+    db_update[collection].update(query, data )
 
 
 def del_collection(collection):
@@ -12,6 +13,6 @@ def find_collection(collection, query):
     db[collection].find()
     
 
-def find_one_collection(collection, query):
+def find_one(collection, query):
     return db[collection].find_one(query)
     

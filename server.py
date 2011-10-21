@@ -2,6 +2,7 @@ from tornado.wsgi import WSGIContainer
 from tornado.httpserver import HTTPServer
 from tornado.ioloop import IOLoop
 from views import app
+import admin_blueprint
 import settings_run
 app.debug = settings_run.DEBUG
 from flaskext.mako import init_mako

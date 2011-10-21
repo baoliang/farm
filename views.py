@@ -1,8 +1,8 @@
 from flaskext.mako import render_template
 from flask import  session, request, make_response
 from app import app
-from service.account_service import vertify_user
-from service.account_service import check_only_user
+from service.account import vertify_user
+from service.account import check_only_user
 @app.route('/')
 def index():
     '''
@@ -72,6 +72,6 @@ def check_user():
         return 'False'
 
 
-@app.route('/post_info'):
+@app.route('/post_info')
 def post_info():
     create_info(request.form, session['uid']) 
