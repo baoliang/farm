@@ -1,6 +1,4 @@
-from lib.store import find_one
-from lib.db import db, db_update
-
+from lib.store import find_one, update
 def vertify_user(uid, password,vertify_code = '' ):
  
     user = find_one('users', {'_id': uid})
@@ -22,9 +20,11 @@ def check_only_user(uid):
 
 def reg_user(user):
     try:
-        db_update.users.insert(user)
+        insert(user)
         return True
     except:
         return False
 
 
+def update_user(uid, info):
+    update('users', {'_id': uid}, {'}    
