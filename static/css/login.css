@@ -39,7 +39,7 @@ a.fduihua{background:url(http://pic2.58.com/ui6/index/bgpic.gif) no-repeat right
 .action1 .action_po_bot{display:block;width:287px;height:5px;background:url(http://pic2.58.com/ui6/my/images/verification-ui6.gif) no-repeat 0px -185px;overflow:hidden;}
 .action_color{ border:1px solid #1d95f6;  background:#feffe3 url(http://pic2.58.com/ui6/my/images/inw-bg.gif) left top repeat-x;}
 .wrong1{ background:url(http://pic2.58.com/ui6/my/images/verification-ui6.gif) no-repeat 0 -190px;}
-.wrong1 .action_po_top{ display:block; width:237px; padding:4px 10px 0 40px; min-height:10px; _height:10px; background:url(http://pic2.58.com/ui6/my/images/verification-ui6.gif) no-repeat 0px -190px;}
+.wrong1 .action_po_top{ display:none; width:237px; padding:4px 10px 0 40px; min-height:10px; _height:10px; background:url(http://pic2.58.com/ui6/my/images/verification-ui6.gif) no-repeat 0px -190px;}
 .wrong1 .action_po_bot{ display:block; width:287px; height:5px; background:url(http://pic2.58.com/ui6/my/images/verification-ui6.gif) no-repeat 0px -375px; overflow:hidden;}
 .wrong_color{  border:1px solid #ff9a9a; background:#feffe3 url(http://pic2.58.com/ui6/my/images/inw-bg.gif) left top repeat-x;}
 /* header */

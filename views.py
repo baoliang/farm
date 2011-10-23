@@ -1,17 +1,18 @@
+#coding: utf-8
 from flaskext.mako import render_template
 from flask import  session, request, make_response
 from app import app
 from service.account import vertify_user
 from service.account import check_only_user
+from service.account import update_user
+from service.account import reg_user
+from service.city import get_city_by_id
 @app.route('/')
 def index():
     '''
     @todo:index page:
     '''
-
-    print session.get('city')
     if session.get('city', None):
-        print session.get('city')
         return render_template('index.html') 
     else:
         return render_template('list_city.html')
@@ -30,47 +31,47 @@ def login_user():
     @todo: login user
     '''
     res = vertify_user(
-        request.form.get('uid', ''),
+        request.form.get('_id', ''),
         request.form.get('pass', '')
     )
     if res:
-        session['id'] = request.form.get('uid')
+        session['id'] = request.form.get('_id')
         return 'True'
     else:
         return 'False'
    
 
-@app.route('/login')
+@app.route('/login', methods=['GET','POST'])
 def login():
     if vertify_user(
-        request.args.get('uid', ''),
-        request.args.get('password')
+        request.form.get('_id', ''),
+        request.form.get('password', '')
     ):
-        session['uid'] = request.args.get('uid')
+        session['_id'] = request.form.get('_id')
     
         return render_template('index.html')
     else:
         return render_template('login.html')
 	
 
-@app.route('/reg')
-def reg():
-	return render_template('reg.html')
-	
-	
-@app.route('/reg_user')
-def reg_user():
+@app.route('/reg_user', methods=['POST', 'GET'])
+def reg_user_by_form():
     '''
     '''
     res = reg_user(request.form) 
     if res:
-       session['uid'] = request.form.get('uid')
-       return render_template('index.html', {'_id': request.form.get('_id', '')})
+       session['uid'] = request.form.get('_id')
+       return render_template('index.html', name={'_id': request.form.get('_id', '')})
     else:
-       return render_template('reg.html', {'_id': request.form.get('_id', '')})
+       return render_template('reg.html', name="错误")
 
 	
 @app.route('/reg')
+def reg():
+    return render_template('reg.html')
+
+
+@app.route('/check_user')    
 def check_user():
     if check_only_user(request.args.get('uid', '')):
         return 'True'
@@ -93,7 +94,15 @@ def catalog():
     city = request.args.get('city', None)
     if city:
         session['city'] = city
-        update_user({'city': city})
+        id =  session.get('id', None)
+        if id:
+            update_user(id, {'city': city})
         return render_template('index.html')
     else:
         return render_template('list_city.html')
+
+
+@app.route('/quit')
+def quit():
+    session['_id'] = None
+    return render_template('index.html')

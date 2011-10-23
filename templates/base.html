@@ -14,21 +14,29 @@
                     <h2>北京</h2>
                     <span id="ipconfig">[<a href="/list_city" target="_self">切换城市</a>]</span>
 					<span class="gap">|</span>
-					<a href="/login" target="_self"> 农业</a>
+					<a href="/farm" target="_self"> 农业</a>
                     <span class="gap">|</span>
-                    <a href="/login" target="_self"> 牧业</a>
+                    <a href="/admimal" target="_self"> 牧业</a>
                     <span class="gap">|</span>
-                    <a href="/login" target="_self"> 渔业</a>
+                    <a href="/fish" target="_self"> 渔业</a>
                     <span class="gap">|</span>
-                    <a href="/login" target="_self"> 林业</a>
+                    <a href="/treee" target="_self"> 林业</a>
                     <span class="gap">|</span>
         
                 </div>
                 <div class="bar_right">
 
-                      <a href="/login" target="_self"> 登录</a>
-                      <span class="gap">|</span>
-                      <a href="/reg" target="_self">注册</a>
+					 
+					%if session.get('_id', None):
+							${session['_id']}
+					  %else:
+					                      <a href="/login" target="_self"> 登录</a>
+                    <span class="gap">|</span>
+                    <a href="/reg" target="_self">注册</a>
+					%endif
+
+					<span class="gap">|</span>
+                    <a href="/quit">退出</a>
                 </div>
             </div>
         </div>
