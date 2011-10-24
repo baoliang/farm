@@ -14,7 +14,11 @@ class Test_account(unittest.TestCase):
 
     create_info_data= {'test':'test'}	 
     def setUp(self):
-        db_update.users.insert({'_id': 'test', 'password': 'test'})
+        db_update.users.insert({
+            '_id': 'test',
+            'password': 'test', 
+            'city':u'北京市'
+        })
 		 
     def tearDown(self):
         db_update.users.remove({'_id': 'test'}) 
@@ -23,7 +27,7 @@ class Test_account(unittest.TestCase):
 		 
     def test_vertify_user(self):
         self.assertEqual(vertify_user('', '' ), False)
-        self.assertEqual(vertify_user('test', 'test'), True)
+        self.assertTrue(bool(vertify_user('test', 'test')))
 		 
 		 
     def test_check_only_user(self):
@@ -37,8 +41,8 @@ class Test_account(unittest.TestCase):
 
 
     def test_create_info(self):
-        create_info(self.create_info_data, 'test')
-        self.assertTrue(bool(db.info.find_one({'uid':'test'})))
+        create_info(self.create_info_data, 'info')
+        self.assertTrue(bool(db.info.find_one({'test':'test'})))
 
 
     def test_update_user(self):

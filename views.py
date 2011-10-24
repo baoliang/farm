@@ -1,12 +1,19 @@
 #coding: utf-8
 from flaskext.mako import render_template
-from flask import  session, request, make_response
+from flask import  session, request, make_response, redirect
 from app import app
 from service.account import vertify_user
 from service.account import check_only_user
 from service.account import update_user
 from service.account import reg_user
 from service.city import get_city_by_id
+@app.before_request
+def before_request():
+    white_list = ['/login']
+    if not session.get('_id', None) and  request.path != '/login':
+        return redirect('/login')
+
+
 @app.route('/')
 def index():
     '''
@@ -43,13 +50,18 @@ def login_user():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-    if vertify_user(
+    user =  vertify_user(
         request.form.get('_id', ''),
         request.form.get('password', '')
-    ):
+    )
+    if user:
         session['_id'] = request.form.get('_id')
-    
-        return render_template('index.html')
+        city = user.get('city', None)
+        if city: 
+            session['city'] = city 
+            return render_template('index.html')
+        else:
+            return render_template('list_city.html')
     else:
         return render_template('login.html')
 	
@@ -94,7 +106,7 @@ def catalog():
     city = request.args.get('city', None)
     if city:
         session['city'] = city
-        id =  session.get('id', None)
+        id =  session.get('_id', None)
         if id:
             update_user(id, {'city': city})
         return render_template('index.html')

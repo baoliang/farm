@@ -5,7 +5,7 @@ def vertify_user(uid, password,vertify_code = '' ):
     user = find_one('users', {'_id': uid})
     if user:
        if user.get('password', '') == password:
-          return True
+          return user
        else:
           return False    
     else:
