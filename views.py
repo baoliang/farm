@@ -11,18 +11,17 @@ from service.city import get_city_by_id
 def before_request():
     white_list = ['/login']
     if not session.get('_id', None) and  request.path != '/login':
-        return redirect('/login')
-
+        pass
 
 @app.route('/')
 def index():
     '''
     @todo:index page:
     '''
-    if session.get('city', None):
-        return render_template('index.html') 
+    if not session.get('city', None) and session.get('_id', None):
+        return render_template('list_city.html') 
     else:
-        return render_template('list_city.html')
+        return render_template('index.html')
 
 
 def find():
