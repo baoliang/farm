@@ -1,8 +1,8 @@
 from lib.store import find_one, update, insert
 from lib.utils import print_err
-def vertify_user(uid, password,vertify_code = '' ):
+def vertify_user(uid, password, collection='users' ,vertify_code = '' ):
  
-    user = find_one('users', {'_id': uid})
+    user = find_one(collection, {'_id': uid})
     if user:
        if user.get('password', '') == password:
           return user

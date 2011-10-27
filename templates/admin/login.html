@@ -1,0 +1,120 @@
+<%inherit file='base.html' />
+<%block name='css'>
+<link href='/static/css/login.css' rel='stylesheet' type='text/css' />
+</%block>
+<%block name='content'>
+
+
+<form action="/admin/login" method="post">
+
+
+	<div class="cb win900">
+
+		<div id="conleft">
+
+			<!--图片轮播控件-->
+
+			<div id="ibanner">
+
+				<div id="ibanner_pic"> <a><img src="/static/img/apple.jpg" /></a></div>
+
+			</div>
+
+		</div>
+
+		<div id="conright">
+
+			<ul class="login-scrool">
+
+				<li class="hover" onclick="setTab('scrool',1,2,this)" id="scrool1"><em></em>账户登录</li>
+
+				<li onclick="setTab('scrool',2,2,this)" id="scrool2"><em></em></li>
+
+			</ul>
+
+			<div class="scrool-bg">
+
+				<div class="loginbox">
+
+					<div id="tipDiv"></div>
+
+					<table>
+
+						<tr id="usernametr">
+
+							<th>账户名</th>
+
+							<td><input class="inp inw c_ccc" type="text" id="uid" name="_id" onfocus='if (this.value == "用户名/电子邮箱") this.value = "";this.className = "inp inw";' size="20" value="用户名/电子邮箱" /></td>
+
+						</tr>
+
+						<tr id="passwordtr">
+
+							<th>密　码</th>
+
+							<td style=" padding-bottom:5px;">
+
+								<input class="inp inw" id="password" type="password" style="margin-bottom:7px;" name="password" size="20" onpaste="return false" value=""/>
+
+							</td>
+
+						</tr>
+
+						<tr>
+
+							<th>&nbsp;</th>
+
+							<td style="padding: 0pt;">
+
+								<input type="checkbox" style="vertical-align: middle;" id="coks" value="on" name="remember" />
+
+								<label class="logintip" for="coks">30天内自动登录 (公共场所慎用)</label>
+
+							</td>
+
+						</tr>
+
+						<tr>
+
+							<th>&nbsp;</th>
+
+							<td style="padding:0;">
+
+								<span class="butt" style="line-height:34px;">
+
+								<input type="submit" name="btnSubmit" value="登录" class="btns" accesskey="l" id="btnSubmit" />
+
+								</span><span class="reg-a"><a href="/reg">免费注册</a>|<a href="/forgetpassword">找回密码</a> </span>
+
+							</td>
+
+						</tr>
+
+					</table>
+
+				</div>
+
+
+
+			</div><!--scrool bg-->
+
+			<div class="clear"></div>
+
+		</div>
+
+		<div class="c"></div>
+
+	</div>
+
+	<div id="footer" class="win900" >
+
+
+	</div>
+
+</form>
+</%block>
+<%block name='js'>
+<script>
+
+</script>
+</%block>

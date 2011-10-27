@@ -7,11 +7,19 @@ from service.account import check_only_user
 from service.account import update_user
 from service.account import reg_user
 from service.city import get_city_by_id
+from service.info import get_info_list
+from service.info import create_info
 @app.before_request
 def before_request():
     white_list = ['/login']
     if not session.get('_id', None) and  request.path != '/login':
         pass
+
+
+@app.route('/admin')
+def admin_index():
+    render_template('admin/login.html')
+
 
 @app.route('/')
 def index():
@@ -31,20 +39,21 @@ def find():
     pass
 
 
-@app.route('/login_user')
+@app.route('/admin/login')
 def login_user():
     '''
     @todo: login user
     '''
     res = vertify_user(
+        'admin_users',
         request.form.get('_id', ''),
         request.form.get('pass', '')
     )
     if res:
         session['id'] = request.form.get('_id')
-        return 'True'
+        return render_template('admin/index.html')
     else:
-        return 'False'
+        return render_template('admin/login.html')
    
 
 @app.route('/login', methods=['GET','POST'])
@@ -117,3 +126,34 @@ def catalog():
 def quit():
     session['_id'] = None
     return render_template('index.html')
+
+
+@app.route('/info_list')
+def info_list():
+    query = request.args.get('query', {})
+    if query:
+        query = eval(query)
+    return render_template(
+        'info_list.html',
+        info_list=get_info_list(
+            request.args.get('type', ''),
+            query,
+            request.args.get('page','1'),
+            request.args.get('limit', ),
+    ))
+
+
+@app.route('/create_info', methods=['GET', 'POST']) 
+def create_info_action():
+    _id = session.get('_id', None)
+    if _id: 
+        if request.form:
+            create_info(request.form, _id)
+            return render_template('info_list.html')
+        else:
+            return render_template('create_info.html')
+    else:
+        return render_template('login.html')
+
+
+    

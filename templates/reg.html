@@ -7,29 +7,18 @@
 <div class="cb win1000">
 		<div class="porleft">
 			<form action="/reg_user" method="post">
+                        <input type='hidden' value='0' name='type' />
 			<p><span class="regtlx">用&nbsp;&nbsp;户&nbsp;&nbsp;名</span>
 				<input type="text" size="20" value="" class="inp inw wrong_color" id="nickName" maxlength="20" name="_id">
 				<!--<span id="nickName_Tip" class="wrong1 hide"><span class="action_po hide"><span class="action_po_top hide">您还没有输入用户名</span><span class="action_po_bot"></span></span></span> -->
 				</p>
-			<p><span class="regtlx">电子邮箱</span>
-				<input type="text" size="20" value="" class="inp inw" id="txtemail" name="email">
-				<span id="txtemail_Tip"></span> </p>
-
-
-			<p><span class="regtlx">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
+				<p><span class="regtlx">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
 				<input type="password" size="30" name="password" id="password" class="inp inw" onkeyup="$.c.user.reg.CheckPasswordStrength(this)" onpaste="return false" maxlength="16">
 				<span id="password_Tip" style="z-index: 100;"></span> </p>
 			<p id="cpp"><span class="regtlx">确认密码</span>
 				<input type="password" size="30" id="cpassword" class="inp inw" maxlength="16" onpaste="return false">
 				<span id="cpassword_Tip"></span> </p>
-			<p id="cpp"><span class="regtlx">用户类型</span>
-				<select  name="u_type"  class="inp inw"/>
-				   <option selected value="0">会员</option>
-				   <option value="1">统计员</option>
-				
-				</select>
-				<span id="cpassword_Tip"></span> </p>
-						<p><span class="regtlx">&nbsp;</span>
+					<p><span class="regtlx">&nbsp;</span>
 				<label>
 					<input type="checkbox" style="vertical-align: middle;" checked="checked"  id="chkagreement">
 					<span class="f12">我确认我同意</span></label>
