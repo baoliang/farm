@@ -17,8 +17,8 @@ def before_request():
 
 
 @app.route('/admin')
-def admin_index():
-    render_template('admin/login.html')
+def admin():
+    return render_template('admin/login.html')
 
 
 @app.route('/')
@@ -39,23 +39,6 @@ def find():
     pass
 
 
-@app.route('/admin/login')
-def login_user():
-    '''
-    @todo: login user
-    '''
-    res = vertify_user(
-        'admin_users',
-        request.form.get('_id', ''),
-        request.form.get('pass', '')
-    )
-    if res:
-        session['id'] = request.form.get('_id')
-        return render_template('admin/index.html')
-    else:
-        return render_template('admin/login.html')
-   
-
 @app.route('/login', methods=['GET','POST'])
 def login():
     user =  vertify_user(
@@ -67,7 +50,8 @@ def login():
         city = user.get('city', None)
         if city: 
             session['city'] = city 
-            return render_template('index.html')
+
+            return render_template(level_html[user.get('level', '1')])
         else:
             return render_template('list_city.html')
     else:
