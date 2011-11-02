@@ -1,7 +1,7 @@
 from lib.db import db_update, db
 import datetime
-def update(collection, query, data, type='mongo'):
-    db_update[collection].update(query, data, upsert=True, safe=True )
+def update(collection, query, data_dic):
+    db_update[collection].update(query, data_dic, upsert=True, safe=True )
 
 def insert(collection, data):
     data.update({'date': datetime.datetime.now()})

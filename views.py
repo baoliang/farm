@@ -8,7 +8,12 @@ from service.account import update_user
 from service.account import reg_user
 from service.city import get_city_by_id
 from service.info import get_info_list
+from service.info import del_info
 from service.info import create_info
+from dic import level_html, collection_html, args
+ 
+
+
 @app.before_request
 def before_request():
     white_list = ['/login']
@@ -41,6 +46,9 @@ def find():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
+    '''
+    @todo:登录
+    '''
     user =  vertify_user(
         request.form.get('_id', ''),
         request.form.get('password', '')
@@ -61,6 +69,7 @@ def login():
 @app.route('/reg_user', methods=['POST', 'GET'])
 def reg_user_by_form():
     '''
+    @todo:注册用户
     '''
     res = reg_user(request.form) 
     if res:
@@ -98,9 +107,9 @@ def catalog():
     city = request.args.get('city', None)
     if city:
         session['city'] = city
-        id =  session.get('_id', None)
-        if id:
-            update_user(id, {'city': city})
+        _id =  session.get('_id', None)
+        if _id:
+            update_user(_id, {'city': city})
         return render_template('index.html')
     else:
         return render_template('list_city.html')
@@ -115,16 +124,18 @@ def quit():
 @app.route('/info_list')
 def info_list():
     query = request.args.get('query', {})
+    collection = request.args.get('collection', '')
     if query:
         query = eval(query)
     return render_template(
-        'info_list.html',
+        collection_html.get(collection, '404.html'),
         info_list=get_info_list(
-            request.args.get('type', ''),
+            collection,
             query,
             request.args.get('page','1'),
-            request.args.get('limit', ),
+            request.args.get('limit', settings.PAGE_LIMIT),
     ))
+    
 
 
 @app.route('/create_info', methods=['GET', 'POST']) 
@@ -140,4 +151,26 @@ def create_info_action():
         return render_template('login.html')
 
 
-    
+@app.route('/del_info')
+def del_info_action():
+    collection =  request.args.get('collection', '')
+    real = request.args.get('_real', 'False')
+    query = eval(request.args.get('query', '{}'))
+    try:
+        del_info(collection, query, real=real)   
+        return '{success:true}'
+    except:
+        return '{success:false}' 
+
+@app.route('/update_info')
+def update_info_action():
+    collection =  request.args.get('collection', '')
+    query = eval(request.args.get('query', '{}'))
+    udpate_dic = eval(request.args.get('update_dic', '{}'))
+    try:
+        update_info(collection, query, update_dic) 
+        return '{success:true}'
+    except:
+        return '{success:false}'
+
+

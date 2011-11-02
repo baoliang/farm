@@ -6,8 +6,10 @@ from service.info import create_info
 from service.account import update_user
 from service.city import get_city_by_id
 from service.info import get_info_list
+from service.info import del_info
+from service.info import update_info
 from lib.db import db, db_update
-from lib.store import insert, find
+from lib.store import insert, find, find_one
 
 import unittest
 
@@ -54,6 +56,20 @@ class Test_account(unittest.TestCase):
 class TestInfo(unittest.TestCase):
 
     create_info_data= {'test':'test'}	 
+
+
+    def setUp(self):
+        db_update.users.insert({
+            '_id': 'test_del',
+            'password': 'test', 
+            'city':u'北京市'
+        })
+        insert(
+            'users',
+            {'_id':'test_update','city':'beijing'}
+        )
+
+
     def test_create_info(self):
         create_info('info_test', self.create_info_data, 'test')
         self.assertTrue(bool(db.info.find_one({'test':'test'})))
@@ -62,8 +78,21 @@ class TestInfo(unittest.TestCase):
         for i in range(100):
             self.create_info_data.pop('_id')
             insert('test_info', self.create_info_data)
-        self.assertEqual(get_info_list('test_info', {}, 0, 0).count(), 100)
+        self.assertEqual(get_info_list('test_info', {}, 0, 0)['count'], 100)
 
+
+    def test_del_info(self):
+        del_info('users', {'_id': 'test_del'}, real=True)
+        self.assertEqual(0, find('users',{'_id': 'test_del'}).count())
     
+
+    def test_update_info(self):
+        update_info('users', {'_id': 'test_update'},  {'city': 'hongkong'})
+        self.assertEqual(
+            'hongkong',
+            find_one('users', {'_id': 'test_update'}).get('city', '')
+        )
+
+
 if __name__ == '__main__':
     unittest.main()
