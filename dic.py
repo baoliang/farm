@@ -6,12 +6,11 @@ level_html = {
 
 
 collection_html = {
-    ''
 
 }
 
 
 args = {
     'False': False,
-    'True',: True,
+    'True': True,
 }

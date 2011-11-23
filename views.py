@@ -26,6 +26,10 @@ def admin():
     return render_template('admin/login.html')
 
 
+@app.route('/test')
+def test():
+    return render_template('test.html')
+
 @app.route('/')
 def index():
     '''
