@@ -2,67 +2,61 @@
 <html>
 <head>
 <title>农牧鱼林网</title>
-     
+    <link href="/static/css/bootstrap.css" rel="stylesheet" media="screen" type="text/css" />  
+    <link href="/static/css/layout.css" rel="stylesheet" media="screen" type="text/css" />      
     <link href="/static/css/farm.css" rel="stylesheet" media="screen" type="text/css" />
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
     <%block name="css">
     </%block>
 </head>
 <body>
-    <div id="wraper">
-        <div id="topbar">
-            <div class="w pos">
-                <div class="bar_left">
-                    <h2>${session.get('city','')}</h2>
-                    <span id="ipconfig">[<a href="/list_city" target="_self">切换城市</a>]</span>
-					<span class="gap">|</span>
-					<a href="/farm" target="_self"> 农业</a>
-                    <span class="gap">|</span>
-                    <a href="/admimal" target="_self"> 牧业</a>
-                    <span class="gap">|</span>
-                    <a href="/fish" target="_self"> 渔业</a>
-                    <span class="gap">|</span>
-                    <a href="/treee" target="_self"> 林业</a>
-                    <span class="gap">|</span>
-        
-                </div>
-                <div class="bar_right">
-
-					 
-					%if session.get('_id', None):
-							${session['_id']}
-					  %else:
-					                      <a href="/login" target="_self"> 登录</a>
-                    <span class="gap">|</span>
-                    <a href="/reg" target="_self">注册</a>
-					%endif
-
-					<span class="gap">|</span>
-                    <a href="/quit">退出</a>
-                </div>
-            </div>
-        </div>
-		<div id='content'>
-		<%block name='content' />
-		 </div>
-        <div id="footer">
-			<div id="contact">
-			 <a href="/help" title="有问题请与客服进行对话" class="fduihua">帮助中心</a>
-			 <a href="/delete" class="red">我要删除信息</a>
-			 |
-			 <a href="/about">关于我们</a>
-			 |
-			 <a href="/contact">联系我们</a>
-			 |
-				 <a href="/ad">推广服务</a>
-			 |<a href="/">公司声明</a>
-			
-			</div>
-			<div class="beian">
-				京公网安备xxxxxx号 <a href="http://www.miibeian.gov.cn/" style="color:#666">京ICP证xxxx</a>
-			</div>
-			</div>
+<div class="topbar">
+  <div class="fill">
+    <div class="container">
+      <a class="brand" href="#"><img src="/static/img/farm.jpg"><img></a>
+      <ul class="nav">
+        <li class="active"><a href="#">资讯专栏</a></li>
+        <li><a href="#about">供应信息</a></li>
+        <li><a href="#contact">求购信息</a></li>
+        <li><a href="#about">技术推广</a></li>
+        <li><a href="#contact">招商加盟</a></li>
+        <li><a href="#about">合作经营</a></li>
+        <li><a href="#contact">招资申请</a></li>
+        <li><a href="#about">黄页展示</a></li>        
+      </ul>
+      <form action="" class="pull-right">
+        <input class="input-small" type="text" placeholder="用户名">
+        <input class="input-small" type="password" placeholder="密码">
+        <button class="btn" type="submit">登录</button>
+      </form>
     </div>
+  </div>
+</div>
 
+<div class="container">
+
+  <div class="content">
+    <div class="page-header">
+        <div>
+            <span>地点:</span>
+            <span></span>
+        </div>
+    </div>
+    <div class="row">
+      <div class="span10">
+        <h2></h2>
+      </div>
+    
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 农牧渔林信息网 2011</p>
+  </footer>
+
+</div> <!-- /container -->
+
+ 
 </body>
 </html>
 <script type="text/javascript" src="/static/js/jquery-1.6.4.js" ></script>
