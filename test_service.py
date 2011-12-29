@@ -13,10 +13,7 @@ from lib.store import insert, find, find_one
 
 import unittest
 
-class Test_account(unittest.TestCase):
-
-
-    
+class Test_account(unittest.TestCase):    
     def setUp(self):
         db_update.users.insert({
             '_id': 'test',
@@ -50,7 +47,7 @@ class Test_account(unittest.TestCase):
 
     
     def test_get_city_by_id(self):
-        self.assertEqual(u'北京市', get_city_by_id('1')['name'])
+        self.assertEqual(u'北京市', get_city_by_id('1')['city_name'])
 
 
 class TestInfo(unittest.TestCase):
@@ -72,13 +69,13 @@ class TestInfo(unittest.TestCase):
 
     def test_create_info(self):
         create_info('info_test', self.create_info_data, 'test')
-        self.assertTrue(bool(db.info.find_one({'test':'test'})))
+        self.assertTrue(bool(db.info_test.find_one({'test':'test'})))
 
     def test_get_info_list(self):
         for i in range(100):
             self.create_info_data.pop('_id')
             insert('test_info', self.create_info_data)
-        self.assertEqual(get_info_list('test_info', {}, 0, 0)['count'], 100)
+        self.assertEqual(get_info_list('test_info', {})['count'], 100)
 
 
     def test_del_info(self):
@@ -92,7 +89,8 @@ class TestInfo(unittest.TestCase):
             'hongkong',
             find_one('users', {'_id': 'test_update'}).get('city', '')
         )
-
+def t():
+    print "err"
 
 if __name__ == '__main__':
     unittest.main()

@@ -1,10 +1,8 @@
-<%inherit file='base.html' />
+<%inherit file='base_out.html' />
 <%block name='css'>
-<link href='/static/css/login.css' rel='stylesheet' type='text/css' />
 </%block>
 <%block name='content'>
-
-<div class="cb win1000">
+<div class="">
 		<div class="porleft">
 			<form action="/reg_user" method="post">
                         <input type='hidden' value='1' name='leval' />
@@ -31,16 +29,13 @@
 					<input type="submit" class="btns" value="立即注册" checked="checked" id="btnSubmit">
 				</label>
 			</p>
-		</div>
+
 		</form>
 		<div class="porright">
 			<p>您已经是会员，请<a href="/login">登录</a></p>
-		
+
 		</div>
 	</div>
 </%block>
 <%block name='js'>
-<script>
-	
-</script>
 </%block>

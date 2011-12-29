@@ -11,14 +11,13 @@ from service.info import get_info_list
 from service.info import del_info
 from service.info import create_info
 from dic import level_html, collection_html, args
- 
-
+from lib.utils import form2dic
 
 @app.before_request
 def before_request():
     white_list = ['/login']
-    if not session.get('_id', None) and  request.path != '/login':
-        pass
+    #if not session.get('_id', None) and  request.path != '/login':
+    pass
 
 
 @app.route('/admin')
@@ -26,19 +25,32 @@ def admin():
     return render_template('admin/login.html')
 
 
+@app.route('/sell')
+def sell():
+    return render_template('sell.html', sells=[])
+
+
 @app.route('/test')
 def test():
     return render_template('test.html')
+
 
 @app.route('/')
 def index():
     '''
     @todo:index page:
     '''
-    if not session.get('city', None) and session.get('_id', None):
-        return render_template('list_city.html') 
-    else:
-        return render_template('index.html')
+    pages = get_info_list('news')
+    return render_template('index.html', pages=pages)
+
+
+@app.route('/user')
+def user():
+    '''
+    @todo:index page:
+    '''
+
+    return render_template('user.html')
 
 
 def find():
@@ -58,14 +70,10 @@ def login():
         request.form.get('password', '')
     )
     if user:
-        session['_id'] = request.form.get('_id')
-        city = user.get('city', None)
-        if city: 
-            session['city'] = city 
-
-            return render_template(level_html[user.get('level', '1')])
-        else:
-            return render_template('list_city.html')
+        print user
+        session['_id'] = user.get('_id', None)
+        session['name'] = user.get('name', None)
+        return redirect('/')
     else:
         return render_template('login.html')
 	
@@ -75,12 +83,13 @@ def reg_user_by_form():
     '''
     @todo:注册用户
     '''
-    res = reg_user(request.form) 
+    res = reg_user(form2dic(request.form)) 
     if res:
-       session['uid'] = request.form.get('_id')
-       return render_template('index.html', name={'_id': request.form.get('_id', '')})
+        session['_id'] = request.form['_id']
+        session['name'] = request.form['name']
+        return redirect('/')
     else:
-       return render_template('reg.html', name="错误")
+       return render_template('error.html', name="服务器错误")
 
 	
 @app.route('/reg')
@@ -98,7 +107,7 @@ def check_user():
 
 @app.route('/post_info')
 def post_info():
-    create_info(request.form, session['uid']) 
+    create_info(request.form, session['_id']) 
 
 
 @app.route('/list_city')
@@ -121,8 +130,8 @@ def catalog():
 
 @app.route('/quit')
 def quit():
-    session['_id'] = None
-    return render_template('index.html')
+    session.clear()
+    return redirect('/')
 
 
 @app.route('/info_list')
@@ -147,12 +156,13 @@ def create_info_action():
     _id = session.get('_id', None)
     if _id: 
         if request.form:
-            create_info(request.form, _id)
-            return render_template('info_list.html')
+            print request.form
+            create_info(request.form['collection'], form2dic(request.form), _id)
+            return redirect(request.form['return'])
         else:
-            return render_template('create_info.html')
+            return redirect('/')
     else:
-        return render_template('login.html')
+        return redirect('/')
 
 
 @app.route('/del_info')

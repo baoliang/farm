@@ -1,0 +1,151 @@
+.margin_top_5px {
+    margin-top: 5px;
+}
+/*清除浮动*/
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+input:button {width:20px;}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+.float_left {float: left;}
+.float_right {float: right;}
+.hide {	display:none;}
+.div_table {
+    display:table;
+    
+    width: 500px;
+}
+.div_table_caption {
+    display:table-caption;
+    background:#2E90BD;
+    color: white;
+    font-size: 15px;
+
+}
+.div_table_row {display:table-row;}
+.div_table_col {
+    display:table-cell;
+    border: 1px solid #a1d8f1;
+  
+}
+.checkbox {width:25px;}
+.div_table_col_bg {
+    background: #2191C0 url(/admin/images/header_bg.png?v=0.1) 50% 50% repeat-x;
+}
+.page_count {
+    color: white;
+}
+
+.page {
+    
+    background-color:#d9d9d9;
+}
+.div_table_row:hover {
+
+    background-color: #a1d8f1;
+}
+.head_title {
+    font-size: 30px;
+    color: white;
+    padding-top: 20px;
+}
+.color_white {
+    color: black;
+}
+.color_black {
+
+color: black;
+font-size: 10px;
+font-weight: bold;
+text-shadow: 0 1px 0 white;
+filter: alpha(opacity=25);
+-khtml-opacity: 0.25;
+-moz-opacity: 0.25;
+opacity: 0.25;
+} 
+.bg_color_white {
+    background-color: white;
+}
+
+.dialog {
+    width: auto;
+    z-index: 950;
+    height: auto;
+    position: absolute;
+    border:1px solid #E0E0E0;
+    background-color: white;
+ 
+}
+.close_dialog {
+    width: 220px;
+    height: 100px;
+    z-index: 950;
+    position: absolute;
+    background-color: white;
+    top:200px; 
+    left:200px;
+}
+.dialog_close {
+    float: right;
+    color:black;
+    	
+}
+.dialog_title {
+    background: #E0E0E0;
+    height:20px;
+}
+.dialog_form {
+    padding-top:10px;
+}
+.dialog_button {
+    padding-top: 10px;
+    float: right;
+}
+.division {
+    width: auto;
+    height: 5px;
+    margin-top: 15px;
+  
+}
+.float_right: {
+    float: right;
+}
+.float_left: {
+    float: left;
+}
+.width_920{
+	width:820px;
+}
+
+.resource {
+	left:12%;
+	top: 100px;
+	width:960px;
+	height:500px;
+}
+.width_960 {
+	width:960px;
+}
+.fenge {
+	height:15px;
+}
+.tool_left {
+ margin-left:10px;
+}
+#search_string {
+	height:30px;
+}
+.bold {
+	font-weight:bold;
+}
+.color_red {
+	color:red;
+}

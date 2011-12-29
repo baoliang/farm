@@ -1,167 +1,182 @@
 <%inherit file='base.html' />
-<%block name='content'>
-<link href="http://pic2.58.com/ui6/post/post.css?version=20110627" type="text/css" rel="stylesheet" />
-<div class="content" align="center">
-  <div id="toperro" class="hc"></div>
-
-
-  <form name="aspnetForm" method="post" target="formSubmit" id="aspnetForm" enctype="multipart/form-data">
-    <span id="main">
-    <table cellpadding="0" cellspacing="0" class="box1" id="formTb">
-      <tbody>
-
-        <tr>
-          <td class="t"><b class="red">*</b> 标 题： </td>
-          <td><input type="text" name="Title" id="Title" value="" class="text1" maxlength="25">
-            <span id="Title_Tip"></span> </td>
-        </tr>
-        <tr para="ObjectType" nameid="0">
-          <td class="t"><b class="red">*</b>&nbsp;类 别：</td>
-          <td><select id="ObjectType" name="ObjectType" nameid="1224" dv="" f="{0}">
-              <option value="">-- 请选择 --</option>
-              <option vid="329" value="0" ci="0">x</option>
-              <option vid="330" value="1" ci="0">x1</option>
-              <option vid="331" value="2" ci="0">x2</option>
+<%block name='search'>
+<div class="margin_top_5px">
+      <span>
+          关键词:
+          <input class="medium" id="prependedInput" name="prependedInput" size="16" type="text" />
+          <button class="btn success">搜索</button> 
+      </span>
+      <span>
+          <button id="send_news" class="btn danger">发布新闻</button> 
+      </span>
   
-              <option vid="332" value="3" ci="0">x3</option>
-              <option vid="333" value="4" ci="0">x4</option>
-              <option vid="334" value="5" ci="0">x5</option>
-            </select>
-            <span id="ObjectType_Tip"></span></td>
-        </tr>
-
-        <tr>
-          <td class="t"><b class="red">*</b> <span id="tt_MinPrice">价格</span>：</td>
-          <td><input class="text3 gray" type="text" id="MinPrice" f="{0}元" name="MinPrice" value="" maxlength="5/">
-            元 <span id="MinPrice_Tip"></span></td>
-        </tr>
-        <tr para="MinPriceqj" nameid="0" style="display: none; ">
-          <td class="t">价 格：</td>
-          <td><select id="MinPriceqj" name="MinPriceqj" nameid="5621" dv="" f="{0}" style="display: none; ">
-              <option value="">-- 请选择 --</option>
-              <option vid="245944" value="0_100" ci="1226">100元以下</option>
-              <option vid="245945" value="101_200" ci="1226">100-200元</option>
-              <option vid="245946" value="201_500" ci="1226">200-500元</option>
-              <option vid="245947" value="501_1000" ci="1226">500-1000元</option>
-              <option vid="245948" value="1001_2000" ci="1226">1000-2000元</option>
-              <option vid="245949" value="2001_3500" ci="1226">2000-3500元</option>
-              <option vid="245950" value="3501_999999" ci="1226">3500元以上</option>
-            </select>
-            <span id="MinPriceqj_Tip"></span></td>
-        </tr>
-   
-        <tr>
-          <td class="t"><b class="red">*</b> 补充说明： </td>
-          <td><div id="div_htmleditor">
-              <div id="fe_htmleditor_comp-4258" class="fe_htmleditor" style="">
-                <div class="toolbar" style="width: 480px; "><span>
-                  <button class="bold " title="加粗"></button>
-                  </span><span>
-                  <button class="underline " title="下划线"></button>
-                  </span><span>
-                  <button class="fontsize " title="字号"></button>
-                  </span><span>
-                  <button class="forecolor  " title="颜色"></button>
-                  </span></div>
-                <div id="fe_htmleditor_iframe_comp-4258" name="fe_htmleditor_iframe_comp-4258" contenteditable="true" class="editor" style="height: 92px; width: 474px; ">
-                  <div><br>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <textarea id="Content" name="Content" style="width:0px; height:0px; display:none;"></textarea>
-            <span id="Content_Tip" class=""><span class="c2"><span class="action_po"><span class="action_po_top">请填写补充说明</span><span class="action_po_bot"></span></span></span></span>
-            <div id="divContentValue" style="display:none;"></div></td>
-        </tr>
-		<!--
-        <tr style="display: none; ">
-          <td class="t"></td>
-          <td><div id="uploadPic" value="">
-              <div style="display:none;" id="divframe">
-                <iframe id="formSubmitPic_0" name="formSubmitPic_0"></iframe>
-                <iframe id="formSubmitPic_1" name="formSubmitPic_1"></iframe>
-                <iframe id="formSubmitPic_2" name="formSubmitPic_2"></iframe>
-                <iframe id="formSubmitPic_3" name="formSubmitPic_3"></iframe>
-                <iframe id="formSubmitPic_4" name="formSubmitPic_4"></iframe>
-                <iframe id="formSubmitPic_5" name="formSubmitPic_5"></iframe>
-                <iframe id="formSubmitPic_6" name="formSubmitPic_6"></iframe>
-                <iframe id="formSubmitPic_7" name="formSubmitPic_7"></iframe>
-              </div>
-              <ul>
-              </ul>
-              <div name="divUploader" class="cls_divUploader">
-                <div class="loadbutton">
-                  <input id="fileUploadInput" name="fileUploadInput" type="file">
-                </div>
-                 <span class="upload_ok">可上传 <font color="red" name="limitNum">8</font> 张图片，每张最大2M，支持jpg/gif/bmp/png格式</span><span class="upload_error" style="display: none; "></span><span class="upload_ing" style="display:none;"></span><span class="upload_maxnum" style="display:none;">上传成功。您已经上传了8张图片，如果您还想上传，只能删除已上传的图片。</span></div>
-              <div>点击这里尝试 <a href="javascript:void(0);" onclick="$.c.Uploader.changeVersion(); $.c.Uploader.addTrack(0);" style="font-size:12px;">新版图片上传功能</a>：支持多选图片</div>
-              <input type="hidden" id="backFunction" name="backFunction" value="$.c.Uploader.finish">
-              <input type="hidden" name="Pic" id="Pic" value="">
-              <input type="hidden" name="PicDesc" id="PicDesc" value="">
-              <input type="hidden" name="PicPos" id="PicPos" value="0">
-            </div></td>
-        </tr>
-        <tr id="trFlashUpload">
-          <td></td>
-          <td valign="top" style="height: 60px; "><div style="position:absolute;">
-              <iframe onload="$.c.Uploader.flashFrameLoaded();" allowtransparency="true" id="frmFlashUpload" src="/flashupload/index.html?rnd=0.3415297558531165" width="820px" height="60px" scrolling="no" frameborder="0"></iframe>
-            </div></td>
-        </tr>
-        <tr>
-          <td class="t"><b class="red">*</b> 手机或电话： </td>
-          <td><input class="text2" type="text" id="Phone" name="Phone" value="">
-            <span id="Phone_Tip"></span> </td>
-        </tr>  </tr>
-        <tr>
-          <td class="t">隐私保护：</td>
-          <td><label>
-            <input type="checkbox" id="cbxFreeDivert" name="cbxFreeDivert" value="">
-            <b style="color:green;">免费</b>设置电话转接，保护手机号码不被公开</label>
-            &nbsp;<span class="jingjiren" id="loadDivert_tip">
-            <div id="divFreeDivert" class="jingjirencon" style="display:none;">
-              <p>什么是58呼转？</p>
-              <span> 1、设置后别人拨打如400 8858 199转xxx就可以自动转接到您的手机上，还可以选择屏蔽中介(<a href="http://about.58.com/yinsibaohu.html" target="_blank" style="font-size:12px;" onclick="$.callDivert.GA_Stat();">查看详情</a>)。<br>
-              2、您勾选并发布信息后我们会下发短信到您的手机上，您回复后就可使用。<br>
-              3、暂不支持固定电话和小灵通。 </span> </div>
-            </span></td>
-        </tr>
-        <tr>
-          <td class="t"></td>
-          <td><label>
-            <input type="checkbox" id="baohushouji" name="baohushouji" value="">
-            <span><b style="color:green;">免费</b>设置为隐藏电话只接受短信问询，避免骚扰</span></label>
-            &nbsp;<span class="jingjiren" id="baohushouji_tip">
-            <div id="divbaohushouji" class="jingjirencon" style="display:none;">
-              <p>什么是隐藏电话，转呼短信？</p>
-              <span> 1、设置后您的电话将被隐藏，别人可通过发短信联系您，由58同城代为转发，免费使用。<br>
-              2、您勾选并发布信息后我们会下发短信到您的手机上，您回复后就可使用。<br>
-              3、暂不支持固定电话和小灵通。</span> </div>
-            </span></td>
-        </tr>-->
-        <tr>
-          <td class="t"><b class="red">*</b> 联系人： </td>
-          <td><input type="text" name="goblianxiren" id="goblianxiren" value="" class="text2" maxlength="6">
-            &nbsp;
-          
-             <span id="goblianxiren_Tip"></span> </td>
-        </tr>
-        <tr>
-          <td class="t">QQ或MSN：</td>
-          <td><input class="text2" type="text" qtb="true" value="" id="IM" name="IM">
-            <span id="IM_Tip"></span></td>
-        </tr>
- 
-      
-      
-       
-      </tbody>
-    </table>
-    </span>
-  </form>
- 
-   
 </div>
 </%block>
+<%block name='content'>
+<table>
+	<thead>
+           <!-- 表字段 -->
+      <tr>
+       	  
+              <th width=100>
+            	      发布人
+              </th>
+              <th>
+              		新闻标题
+              </th>
+              <!--表字段-->
+		</tr>
+	</thead>
+	<tbody>
+	
+       <!--表数据-->
+          
+          % for news in pages['data']:
+            <tr>
+                   <td>
+                        ${news.auther}
+                   </td>
+                   <td>
+                        ${news.title}
+                   </td>
+            </tr>          
+          % endfor
+         
+		
+	</tbody>
+           
+</table>
+ <div>
+	<div class="float_left">
+	共${pages['count']}条
+	
+		<select class="small" id="rows" name="rows">
+			<option value="10">10</option>
+			<option value="15">15</option>
+			<option value="20">20</option>
+		</select>
+	</div>
+	<div class="float_right">
+	<a href="javascript:void(0)" id="pre_page"> 上一页</a>
+	
+	<a href="javascript:void(0)" id="next_page"> 下一页 </a>
+	
+
+   </div>	
+		
+
+</div>
+<div id="send_news_window" class="hide dialog">
+    <div class="dialog_title">
+        <span class="color_black">发布新闻</span> 
+        <a href="javascript:void(0)" id="add_dialog_close" > 
+        <span class="dialog_close close">x</span>
+         </a>
+    </div>
+    <fieldset>                   		
+    
+    <form action="/create_info?return=/" method="post">
+        <input type='hidden' value='news' name='collection' />
+		<input name='auther' value='${session.get('name')}' type='hidden' />
+
+        //如果选中行业就不需要填
+        <div class="clearfix">
+            <label for="xlInput">行业</label>
+            <div class="input">
+        <input type="checkbox" class="xlarge" value=""  name="title" />
+          
+            
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">种类</label>
+            <div class="input">
+                <input type="text" class="xlarge" value=""  name="title" />
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">规格</label>
+            <div class="input">
+                <input type="text" class="xlarge" value=""  name="title" />
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">数量</label>
+            <div class="input">
+                <input type="text" class="xlarge" value=""  name="title" />
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">价格</label>
+            <div class="input">
+                <input type="text" class="xlarge" value=""  name="title" />
+            </div>
+        </div>
+        
+        <div class="clearfix">
+            <label for="xlInput">出产地点</label>
+            <div class="input">
+                <input type="text" class="xlarge" value=""  name="title" />
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">交货地点</label>
+            <div class="input">
+                <input type="text" class="xlarge" value=""  name="title" />
+            </div>
+        </div>
+        //默认自已
+        <div class="clearfix">
+            <label for="xlInput">供应方</label>
+            <div class="input">
+                <input type="text" class="xlarge" value=""  name="title" />
+            </div>
+        </div>
+        //默认自已
+        <div class="clearfix">
+            <label for="xlInput">联系人</label>
+            <div class="input">
+                <input type="text" class="xlarge" value=""  name="title" />
+            </div>
+        </div>
+        //默认自已
+        <div class="clearfix">
+            <label for="xlInput">联系电话</label>
+            <div class="input">
+                <input type="text" class="xlarge" value=""  name="title" />
+            </div>
+        </div>
+        
+        
+        
+        <div class="clearfix">
+            <label for="xlInput">内容</label>
+            <div class="input">
+                <textarea class="xxlarge" name="centent" id="textarea" rows="3" ></textarea>
+            </div>
+        </div>
+          <div class="clearfix">
+              <label for="xlInput">有效期</label>
+              <div class="input">
+                  <textarea class="xxlarge" name="centent" id="textarea" rows="3" ></textarea>
+              </div>
+          </div>
+  
+    
+        <div class="actions">
+            <input type="submit" class="btn success" id="add_dialog_submit" value="发布"" />
+            <input type="button" class="btn"  id="add_dialog_cancel" value="暂不注册"> 
+        </div> 
+    </fieldset>                   		
+
+    </form>
+
+</div>
+
+</%block>
 <%block name='js'>
-<script type='text/javascript' src='/static/js/info_list.js'/>
-</%block> 
+<script src="/static/js/news.js"></script>
+</%block>
+
+
+

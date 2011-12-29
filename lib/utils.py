@@ -12,3 +12,12 @@ def print_err():
     sys.stderr.write('--'*30+os.linesep)
     traceback.print_exc(file=sys.stderr)
     sys.stderr.write('=='*30+os.linesep)
+    
+def now():
+    return datetime.now()
+
+def form2dic(form):
+    temp_dic = {}
+    for i in form:
+        temp_dic[i] = form[i]
+    return temp_dic

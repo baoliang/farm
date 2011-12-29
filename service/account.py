@@ -21,6 +21,7 @@ def check_only_user(uid):
 
 def reg_user(user):
     try:
+        print user
         insert('users' ,user)
         return True
     except:
