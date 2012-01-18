@@ -8,4 +8,4 @@ from flaskext.mako import init_mako
 app.config.from_object('settings_run')
 init_mako(app)
 if __name__ ==  '__main__':
-    app.run('192.168.1.104',5000)
+    app.run('192.168.1.102',5000)
