@@ -1,4 +1,4 @@
-#coding: utf-8
+# _*_ coding: utf-8 _*_
 from flaskext.mako import render_template
 from flask import  session, request, make_response, redirect
 from app import app
@@ -70,12 +70,12 @@ def login():
         request.form.get('password', '')
     )
     if user:
-        print user
         session['_id'] = user.get('_id', None)
         session['name'] = user.get('name', None)
         return redirect('/')
     else:
-        return render_template('login.html')
+        session['err_msg'] = u"帐号密码错误"
+        return redirect('/')
 	
 
 @app.route('/reg_user', methods=['POST', 'GET'])

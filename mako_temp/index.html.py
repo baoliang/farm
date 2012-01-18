@@ -4,7 +4,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 6
-_modified_time = 1324997485.4218869
+_modified_time = 1326890488.056765
 _template_filename='templates/index.html'
 _template_uri='index.html'
 _template_cache=cache.Cache(__name__, _modified_time)
@@ -27,15 +27,14 @@ def render_body(context,**pageargs):
     context.caller_stack._push_frame()
     try:
         __M_locals = __M_dict_builtin(pageargs=pageargs)
-        def search():
-            return render_search(context.locals_(__M_locals))
-        page = context.get('page', UNDEFINED)
         def content():
             return render_content(context.locals_(__M_locals))
+        def search():
+            return render_search(context.locals_(__M_locals))
         session = context.get('session', UNDEFINED)
+        pages = context.get('pages', UNDEFINED)
         def js():
             return render_js(context.locals_(__M_locals))
-        pages = context.get('pages', UNDEFINED)
         __M_writer = context.writer()
         # SOURCE LINE 1
         __M_writer(u'\n')
@@ -69,7 +68,6 @@ def render_content(context,**pageargs):
             return render_content(context)
         session = context.get('session', UNDEFINED)
         pages = context.get('pages', UNDEFINED)
-        page = context.get('page', UNDEFINED)
         __M_writer = context.writer()
         # SOURCE LINE 15
         __M_writer(u'\n<table>\n\t<thead>\n           <!-- \u8868\u5b57\u6bb5 -->\n      <tr>\n       \t  \n              <th width=100>\n            \t      \u53d1\u5e03\u4eba\n              </th>\n              <th>\n              \t\t\u65b0\u95fb\u6807\u9898\n              </th>\n              <!--\u8868\u5b57\u6bb5-->\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\n       <!--\u8868\u6570\u636e-->\n      \n')
@@ -90,7 +88,7 @@ def render_content(context,**pageargs):
         __M_writer(unicode(pages['count']))
         __M_writer(u'\u6761\n\t\n    </div>\n\t<div class="float_right">\n')
         # SOURCE LINE 55
-        if page['page'] != 1:
+        if pages['count'] > 10:
             # SOURCE LINE 56
             __M_writer(u'\t<a href="javascript:void(0)" id="pre_page"> \u4e0a\u4e00\u9875</a>\n')
             pass

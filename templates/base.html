@@ -33,8 +33,10 @@
             <input class="input-small" type="password" name="password" placeholder="密码">
             <button class="btn" type="submit">登录</button>
             <button class="btn danger" id="reg_button" type="button">注册</button>
+            <span class="color_red">${session.get('err_msg', '')}</span>
             % endif
         </form>
+        
     </div>
   </div>
 </div>

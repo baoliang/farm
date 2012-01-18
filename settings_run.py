@@ -11,7 +11,7 @@ PAGE_LIMIT = 10
 MAKO_CACHEDIR = 'mako_temp'
 # optional, if specified Mako will respect the cache size
 MAKO_CACHESIZE = 500
-DEFAULT_LIMIT = 30
+DEFAULT_LIMIT = 10
 #状态码
 ST_CODE = {
     'norm': 0,

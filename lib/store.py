@@ -11,7 +11,7 @@ def insert(collection, data, st_code=settings_run.ST_CODE['norm']):
     
 def remove(collection, query={}, real=False):
     if real:
-        db_update[collection].remove(query)
+        db_update[collection].remove(query, safe=True)
     else:
         db_update[collection].update(
             query, 
@@ -29,6 +29,6 @@ def find(collection, query={}, limit=0):
     return db[collection].find(query).limit(limit)
 
 
-def find_one(collection, query):
+def find_one(collection, query={}):
     return db[collection].find_one(query)
     

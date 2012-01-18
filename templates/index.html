@@ -52,7 +52,7 @@
 	
     </div>
 	<div class="float_right">
-    %if page['page'] != 1:
+      %if pages['count'] > 10:
 	<a href="javascript:void(0)" id="pre_page"> 上一页</a>
 	%endif
     %if pages['count']/pages['limit'] > 2:

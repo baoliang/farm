@@ -3,6 +3,7 @@ import unittest
 from random import randint
 from datetime import datetime
 from lib.store import insert, remove
+from lib.store import find
 from lib.page import get_page
 from lib.utils import now
 class Test_lib(unittest.TestCase):
@@ -31,6 +32,7 @@ class Test_lib(unittest.TestCase):
         self.assertEqual(resault['data'][9]['_id'], resault['last_id'])
         self.assertEqual(len(resault['data']), 10)
         remove('test', real=True)
+        print find('test').count()
         resault = get_page('test', page=1, limit=10) 
         self.assertEqual(resault['count'], 0)
         self.assertEqual(None, resault['last_time'])
