@@ -24,6 +24,10 @@
               <th>
               		新闻标题
               </th>
+              <th>
+              	发布时间	
+              </th>
+    
               <!--表字段-->
 		</tr>
 	</thead>
@@ -39,6 +43,10 @@
                    <td>
                         ${news.get('title', '')}
                    </td>
+
+                   <td>
+                        ${news.get('create_time', '')}
+                   </td>
             </tr>          
           % endfor
          
@@ -47,17 +55,21 @@
            
 </table>
  <div>
+   <input type="hidden" id="last_time" value="${pages['last_time']}" />
 	<div class="float_left">
 	共${pages['count']}条
 	
     </div>
 	<div class="float_right">
-      %if pages['count'] > 10:
+
+      <a href="javascript:void(0)" id="first_page">首页</a>
+    %if pages['page'] !=1:
 	<a href="javascript:void(0)" id="pre_page"> 上一页</a>
 	%endif
-    %if pages['count']/pages['limit'] > 2:
+    %if pages['count']/pages['limit'] >= 1:
 	<a href="javascript:void(0)" id="next_page"> 下一页 </a>
 	%endif
+    <input type="hidden" id="old_page" value="${pages['page']}"  />
 
    </div>	
 		

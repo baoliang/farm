@@ -26,17 +26,14 @@ class Test_lib(unittest.TestCase):
         '''
         @todo: 测试分页
         '''
-        resault = get_page('test', page=1, limit=10) 
+        resault = get_page('test', {'page':1}, limit=10) 
         self.assertEqual(resault['count'], 1000)
         self.assertEqual(resault['data'][9]['create_time'], resault['last_time'])
-        self.assertEqual(resault['data'][9]['_id'], resault['last_id'])
         self.assertEqual(len(resault['data']), 10)
         remove('test', real=True)
-        print find('test').count()
-        resault = get_page('test', page=1, limit=10) 
+        resault = get_page('test', {'page':1}, limit=10) 
         self.assertEqual(resault['count'], 0)
         self.assertEqual(None, resault['last_time'])
-        self.assertEqual(None, resault['last_id'])
 
         
 if __name__ == '__main__':

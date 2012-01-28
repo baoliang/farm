@@ -12,6 +12,7 @@ from service.info import del_info
 from service.info import create_info
 from dic import level_html, collection_html, args
 from lib.utils import form2dic
+from lib.utils import now
 
 @app.before_request
 def before_request():
@@ -40,9 +41,25 @@ def index():
     '''
     @todo:index page:
     '''
-    pages = get_info_list('news')
-    return render_template('index.html', pages=pages)
-
+    query = form2dic(request.args)
+    query.update({'last_time': session.get('last_time', now())})
+    if (int(session.get('pages', {'page': 1}).get('page', 1)) == int(query.get('page', 1))) and  int(query.get('page', 1)) !=1:  
+        print query.get('page')
+        print 'dddd'
+        pages = session['pages']
+    else:
+        print query
+        pages = get_info_list(
+            'news', 
+            query=query,
+            
+        ) 
+    session.update({
+        'last_time': pages.get('last_time', now()),
+        'pages': pages   
+    })
+    
+    return render_template('index.html', pages=pages) 
 
 @app.route('/user')
 def user():

@@ -1,4 +1,5 @@
 from lib.db import db_update, db
+import pymongo
 import datetime
 import settings_run
 def update(collection, query, data_dic):
@@ -7,7 +8,7 @@ def update(collection, query, data_dic):
 def insert(collection, data, st_code=settings_run.ST_CODE['norm']):
     data.update({'create_time': datetime.datetime.now()})
     data.update({'st_code': st_code})
-    db_update[collection].insert(data)
+    db_update[collection].insert(data, safe=True)
     
 def remove(collection, query={}, real=False):
     if real:
@@ -26,7 +27,7 @@ def remove(collection, query={}, real=False):
 
 def find(collection, query={}, limit=0):
     query.update({'st_code': settings_run.ST_CODE['norm']})
-    return db[collection].find(query).limit(limit)
+    return db[collection].find(query).sort('create_time', pymongo.DESCENDING).limit(limit)
 
 
 def find_one(collection, query={}):
