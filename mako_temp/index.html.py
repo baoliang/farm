@@ -3,12 +3,11 @@ from mako import runtime, filters, cache
 UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
-_magic_number = 6
-_modified_time = 1327156231.262079
-_template_filename='templates/index.html'
-_template_uri='index.html'
-_template_cache=cache.Cache(__name__, _modified_time)
-_source_encoding='utf-8'
+_magic_number = 7
+_modified_time = 1328094297.6071801
+_template_filename = 'templates/index.html'
+_template_uri = 'index.html'
+_source_encoding = 'utf-8'
 _exports = [u'content', u'search', u'js']
 
 
