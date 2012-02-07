@@ -8,11 +8,12 @@ from service.account import update_user
 from service.account import reg_user
 from service.city import get_city_by_id
 from service.info import get_info_list
+from service.info import get_one_info
 from service.info import del_info
 from service.info import create_info
 from dic import level_html, collection_html, args
 from lib.utils import form2dic
-from lib.utils import now
+from lib.utils import now, DatetimeJSONEncoder
 
 @app.before_request
 def before_request():
@@ -114,7 +115,8 @@ def reg():
     
     return render_template(
         'reg.html',
-        provice_list=get_info_list("city", query={'f_id': "0"}, return_type = "list")
+        provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
+        city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1)
     )
 
     
@@ -130,8 +132,21 @@ def check_user():
     
 @app.route('/get_city')    
 def get_city():
-    city  = get_info_list('city', query={"f_id": request.args.get("_id")}
-    return return_json(city)
+    _id = request.args.get('_id')
+    if _id in ["1", "2", "9"]:
+        _id  = get_one_info(
+                'city',
+                query={"f_id": _id}
+        ).get("_id") 
+ 
+    city_list = get_info_list(
+        'city',
+        query={"f_id": _id},
+        return_type = "list",
+        sort=1
+    )
+    import simplejson
+    return return_json(city_list=simplejson.dumps(city_list, cls=DatetimeJSONEncoder))
 
     
 
@@ -228,7 +243,8 @@ def get_loc_by_ip():
     res = urllib2.urlopen( req )
     html = res.read()
     res.close()
-    
     return html
+    
+    
 
      

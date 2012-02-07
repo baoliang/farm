@@ -29,17 +29,19 @@
             <label for="xlInput">位置</label>
             <div class="input">
            
-                <select class="loc_select" name="province" id="province" defvalue="11">
+                <select class="loc_select" name="province_id" id="province" defvalue="11">
                      % for provice in provice_list:
                         <option value="${provice.get('_id', '')}">${provice.get('city_name', '')}</option>
                      % endfor
                 </select>
                 
-                <select class="loc_select" name="city" id="city" >
-                    <option value="">市(区)</option>
+                <select class="loc_select" name="city_id" id="city" >
+                    % for city in city_list:
+                        <option value="${city.get('_id', '')}">${city.get('city_name', '')}</option>
+                    % endfor    
                 </select>
-             <select id="area" class="loc_select" name="area">
-                <option value="">县</option>
+             <select id="area" class="loc_select" name="area_id">
+                
             </select>
             </div>
         </div>
@@ -68,4 +70,5 @@
 </%block>
 <%block name='js'>
 <script src="/static/js/login.js"></script>
+<script src="/static/js/loc.js"></script>
 </%block>

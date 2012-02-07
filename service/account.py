@@ -21,7 +21,9 @@ def check_only_user(_id):
 
 def reg_user(user):
     try:
-        print user
+        province_id = user.get('province_id', None)
+        if province_id:
+            user.update({'province': find_one("city", {"_id": })})
         insert('users' ,user)
         return True
     except:
