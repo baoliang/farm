@@ -26,14 +26,15 @@
       </ul>
         <form action="/login" class="login" method="POST">
             % if  session.get('_id', {}):
-                  <span class="color_red welcome">欢迎 ${session.get('name', None)}</span>
-                  <a href="/quit" class="btn danger">退出帐号</a>
+                <span class="color_red welcome">欢迎 ${session.get('name', None)}</span>
+                <a href="/quit" class="btn danger">退出帐号</a>
+                <a href="/setting" class="btn">帐号设置</a>
             % else:
-            <input class="input-small" type="text" name="_id" placeholder="用户名">
-            <input class="input-small" type="password" name="password" placeholder="密码">
-            <button class="btn" type="submit">登录</button>
-            <button class="btn danger" id="reg_button" type="button">注册</button>
-            <span class="color_red">${session.get('err_msg', '')}</span>
+                <input class="input-small" type="text" name="_id" placeholder="用户名">
+                <input class="input-small" type="password" name="password" placeholder="密码">
+                <button class="btn" type="submit">登录</button>
+                <a href="/reg" class="btn danger">注册</a>
+                <span class="color_red">${session.get('err_msg', '')}</span>
             % endif
         </form>
         
@@ -44,28 +45,7 @@
 <div class="container">
 
     <div class="content">
-        <div class="page-header">
-            <div>
-                <span>
-                    地点:${session.get('city','')}
-                    <button class="btn danger">选择地区</button>
-                </span>
-                <span></span>
-            </div>
-            <div class="margin_top_5px">
-                <span>
-                    类型:${session.get('type','')}
-                    <button class="btn default">农业</button>
-                    <button class="btn default">牧业</button>
-                    <button class="btn default">渔业</button>
-                    <button class="btn default">林业</button>     
-                </span>
 
-            </div>
-            <%block name="search" />
-  
-     
-        </div>
         <div id="content">
           
             <%block name="content" />
@@ -79,58 +59,14 @@
   </footer>
 
 </div> <!-- /container -->
-<div id="reg" class="hide dialog">
-    <div class="dialog_title">
-        <span class="color_black">注册帐号</span> 
-        <a href="javascript:void(0)" id="add_dialog_close" > 
-        <span class="dialog_close close">x</span>
-         </a>
-    </div>
-    <fieldset>                   		
-    
-    <form action="/reg_user" method="post">
-        <input type='hidden' value='1' name='leval' />
-        <div class="clearfix">
-            <label for="xlInput">用户名(最好用邮箱)</label>
-            <div class="input">
-            <input type="text" class="xlarge" value=""  name="_id" />
-            </div>
-        </div>
-        <div class="clearfix">
-            <label for="xlInput">姓名或单位名称</label>
-            <div class="input">
-            <input type="text" class="xlarge" value=""  name="name" />
-            </div>
-        </div>
-        
-        <div class="clearfix">
-            <label for="xlInput">密码</label>
-            <div class="input">
-                <input type="password" name="password" class="xlarge" id="password" />
-            </div>
-        </div>
-        <div class="clearfix">
-            <label for="xlInput">确认密码</label>
-            <div class="input">
-                <input type="password" id="cpassword" class="xlarge">
-            </div>
-        </div>
-    
-        <div class="actions">
-            <input type="submit" class="btn success" id="add_dialog_submit" value="注册" />
-            <input type="button" class="btn"  id="add_dialog_cancel" value="暂时先不注册"> 
-        </div> 
-    </fieldset>                   		
 
-    </form>
-
+<div id="alert" class="hide alert-message error" >
+    <a class="close" href="#"  id="alert_close">×</a>
+    <p id="alert_content"></p>
 </div>
- 
 </body>
 </html>
 <script type="text/javascript" src="/static/js/jquery-1.6.4.js" ></script>
-<script type="text/javascript" src="/static/js/backbone.js" ></script>
 <script type="text/javascript" src="/static/js/lib.js" ></script>
-<script type="text/javascript" src="/static/js/base.js" ></script>
 <%block name="js" />
 

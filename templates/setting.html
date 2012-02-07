@@ -1,0 +1,38 @@
+<%inherit file='base.html' />
+
+<%block name='content'>
+
+<div class="">
+<div id="reg" class="">
+    <div class="dialog_title">
+        <span class="color_black">帐号管理</span> 
+
+    </div>
+    <fieldset>                   		
+    
+    <form action="/reg_user" method="post" id="reg_form">
+        <input type='hidden' value='1' name='leval' />
+
+        <div class="clearfix">
+            <label for="xlInput">姓名或单位名称</label>
+            <div class="input">
+            <input type="text" class="xlarge" value=""  name="name" />
+            </div>
+        </div>
+
+        <div class="actions">
+            <input type="button" class="btn success" id="reg_user_action" value="修改" />
+            <input type="button" class="btn"  id="reg_user_cancel" value="申请实名认证"> 
+        </div> 
+    </fieldset>                   		
+
+    </form>
+
+</div>
+</%block>
+<%block name='js'>
+<script src="/static/js/setting.js"></script>
+</%block>
+
+
+

@@ -149,3 +149,6 @@ opacity: 0.25;
 .color_red {
 	color:red;
 }
+.loc_select {
+    width: 100px;
+}

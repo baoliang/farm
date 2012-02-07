@@ -1,5 +1,11 @@
 var farm = {};
-
+$('#alert_close').click(function(){
+    $('#alert').hide();
+});
+function alert(content){
+	$("#alert_content").html("<strong>提示!&nbsp</strong>"+content);
+	center_show("alert");
+}
 function center_show(id){
     function center(id){
         var windowWidth = document.documentElement.clientWidth;   
@@ -15,3 +21,6 @@ function center_show(id){
         center(id);
         $('#'+id+'').show();
 }
+
+
+

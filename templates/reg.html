@@ -1,41 +1,71 @@
-<%inherit file='base_out.html' />
+<%inherit file='base.html' />
 <%block name='css'>
 </%block>
 <%block name='content'>
 <div class="">
-		<div class="porleft">
-			<form action="/reg_user" method="post">
-                        <input type='hidden' value='1' name='leval' />
-			<p><span class="regtlx">用&nbsp;&nbsp;户&nbsp;&nbsp;名</span>
-				<input type="text" size="20" value="" class="inp inw wrong_color" id="nickName" maxlength="20" name="_id">
-				<!--<span id="nickName_Tip" class="wrong1 hide"><span class="action_po hide"><span class="action_po_top hide">您还没有输入用户名</span><span class="action_po_bot"></span></span></span> -->
-				</p>
-				<p><span class="regtlx">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span>
-				<input type="password" size="30" name="password" id="password" class="inp inw" onkeyup="$.c.user.reg.CheckPasswordStrength(this)" onpaste="return false" maxlength="16">
-				<span id="password_Tip" style="z-index: 100;"></span> </p>
-			<p id="cpp"><span class="regtlx">确认密码</span>
-				<input type="password" size="30" id="cpassword" class="inp inw" maxlength="16" onpaste="return false">
-				<span id="cpassword_Tip"></span> </p>
-					<p><span class="regtlx">&nbsp;</span>
-				<label>
-					<input type="checkbox" style="vertical-align: middle;" checked="checked"  id="chkagreement">
-					<span class="f12">我确认我同意</span></label>
-				<a class="f12" id="syxy" href="javascript:void(0);"><span>使用协议</span></a><span id="chkagreement_Tip"></span> <span style="display: none;" id="xiy" class="xiy"><strong>使用协议：</strong> <br>
-				<textarea class="tarea" rows="" readonly="readonly" cols="">    xxx
-		</textarea>
-				</span> </p>
-			<p><span class="regtlx">&nbsp;</span>
-				<label id="butt" class="butt">
-					<input type="submit" class="btns" value="立即注册" checked="checked" id="btnSubmit">
-				</label>
-			</p>
+<div id="reg" class="">
+    <div class="dialog_title">
+        <span class="color_black">注册帐号</span> 
 
-		</form>
-		<div class="porright">
-			<p>您已经是会员，请<a href="/login">登录</a></p>
+    </div>
+    <fieldset>                   		
+    
+    <form action="/reg_user" method="post" id="reg_form">
+        <input type='hidden' value='1' name='leval' />
+        <div class="clearfix">
+            <label for="xlInput">用户名(最好用邮箱)</label>
+            <div class="input">
+              <input type="text" class="xlarge" value=""  name="_id" id="_id" />
+              <span id='reg_tips'></span>
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">姓名或单位名称</label>
+            <div class="input">
+            <input type="text" class="xlarge" value=""  name="name" />
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">位置</label>
+            <div class="input">
+           
+                <select class="loc_select" name="province" id="province" defvalue="11">
+                     % for provice in provice_list:
+                        <option value="${provice.get('_id', '')}">${provice.get('city_name', '')}</option>
+                     % endfor
+                </select>
+                
+                <select class="loc_select" name="city" id="city" >
+                    <option value="">市(区)</option>
+                </select>
+             <select id="area" class="loc_select" name="area">
+                <option value="">县</option>
+            </select>
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">密码</label>
+            <div class="input">
+                <input type="password" name="password" class="xlarge" id="password" />
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">确认密码</label>
+            <div class="input">
+                <input type="password" id="cpassword" class="xlarge">
+            </div>
+        </div>
+    
+        <div class="actions">
+            <input type="button" class="btn success" id="reg_user_action" value="注册" />
+            <input type="button" class="btn"  id="reg_user_cancel" value="暂时先不注册"> 
+        </div> 
+    </fieldset>                   		
 
-		</div>
-	</div>
+    </form>
+
+</div>
 </%block>
 <%block name='js'>
+<script src="/static/js/login.js"></script>
 </%block>

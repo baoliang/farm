@@ -12,8 +12,8 @@ def vertify_user(uid, password, collection='users' ,vertify_code = '' ):
         return False
 	
 	
-def check_only_user(uid):
-    if find_one('users', {'_id': uid}):
+def check_only_user(_id):
+    if find_one('users', {'_id': _id}):
         return False
     else:
         return True

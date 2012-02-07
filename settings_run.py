@@ -18,3 +18,5 @@ ST_CODE = {
     'del': 1,
     'v': 2,
 }
+SINA_APP_KEY = '4043432041'
+SINA_APP_SECREAT = 'bec86e354c588f8a7bbbc8758f746ba6'

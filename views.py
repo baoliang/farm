@@ -1,6 +1,6 @@
 # _*_ coding: utf-8 _*_
 from flaskext.mako import render_template
-from flask import  session, request, make_response, redirect
+from flask import  session, request, make_response, redirect, jsonify as return_json
 from app import app
 from service.account import vertify_user
 from service.account import check_only_user
@@ -111,16 +111,29 @@ def reg_user_by_form():
 	
 @app.route('/reg')
 def reg():
-    return render_template('reg.html')
+    
+    return render_template(
+        'reg.html',
+        provice_list=get_info_list("city", query={'f_id': "0"}, return_type = "list")
+    )
 
+    
+@app.route('/setting')
+def settings():
+    return render_template('setting.html')
+    
 
 @app.route('/check_user')    
 def check_user():
-    if check_only_user(request.args.get('uid', '')):
-        return 'True'
-    else:
-        return 'False'
+    return return_json(success = check_only_user(request.args.get('_id', '')))
 
+    
+@app.route('/get_city')    
+def get_city():
+    city  = get_info_list('city', query={"f_id": request.args.get("_id")}
+    return return_json(city)
+
+    
 
 @app.route('/post_info')
 def post_info():
@@ -204,4 +217,18 @@ def update_info_action():
     except:
         return '{success:false}'
 
+        
+@app.route('/get_loc_by_ip')
+def get_loc_by_ip():
+    import urllib2
+    ip = request.remote_addr
+    if ip == "127.0.0.1": 
+        ip = request.headers["X-Real-IP"]
+    req = urllib2.Request("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=python&ip="+ip)
+    res = urllib2.urlopen( req )
+    html = res.read()
+    res.close()
+    
+    return html
 
+     

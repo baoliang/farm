@@ -7,8 +7,11 @@ def create_info(collection, info, _id):
     insert(collection, info)
 
 
-def get_info_list(collection, query={}, limit=settings_run.DEFAULT_LIMIT): 
-    return get_page(collection, query=query, limit=settings_run.PAGE_LIMIT)
+def get_info_list(collection, query={}, limit=settings_run.DEFAULT_LIMIT, return_type = "page"): 
+    if return_type == "page":
+        return get_page(collection, query=query, limit=settings_run.PAGE_LIMIT)
+    else:
+        return find(collection, query=query);
 
 
 def del_info(collection, query, real=False):
