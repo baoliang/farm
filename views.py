@@ -112,7 +112,6 @@ def reg_user_by_form():
 	
 @app.route('/reg')
 def reg():
-    
     return render_template(
         'reg.html',
         provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
@@ -122,7 +121,15 @@ def reg():
     
 @app.route('/setting')
 def settings():
-    return render_template('setting.html')
+    if session.get('_id', None):
+        return render_template(
+            'setting.html',
+            user=get_one_info("users", {'_id': session.get('_id', None)}),
+            provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
+            city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1)
+        )
+    else:
+        return redirect('/')
     
 
 @app.route('/check_user')    
@@ -158,20 +165,18 @@ def post_info():
 @app.route('/list_city')
 def list_city():
     return render_template('list_city.html')
-    
 
-@app.route('/catalog')
-def catalog():
-    city = request.args.get('city', None)
-    if city:
-        session['city'] = city
-        _id =  session.get('_id', None)
-        if _id:
-            update_user(_id, {'city': city})
-        return render_template('index.html')
+@app.route('/update_user', methods=['POST', 'GET'])
+def update_user_action():
+    _id = session.get('_id', None)
+    if _id:
+        user = form2dic(request.form)
+        user.pop('password')
+        update_user(_id, user)
+        session['name'] = user.get('name', None)
+        return redirect('/')  
     else:
-        return render_template('list_city.html')
-
+        return redirect('/')       
 
 @app.route('/quit')
 def quit():

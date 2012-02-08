@@ -25,9 +25,13 @@ def remove(collection, query={}, real=False):
         )
 
 
-def find(collection, query={}, limit=0, sort=-1):
+def find(collection, query={}, limit=0, sort=-1, return_type="list"):
     query.update({'st_code': settings_run.ST_CODE['norm']})
-    return list(db[collection].find(query).sort('create_time', sort).limit(limit))
+    result = db[collection].find(query).sort('create_time', sort).limit(limit)
+    if return_type == "cusor":
+        return result
+    else:
+        return list(result)
 
 
 def find_one(collection, query={}):

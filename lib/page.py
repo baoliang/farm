@@ -46,7 +46,7 @@ def get_page(
     
     if query.has_key('create_time'): query.pop('create_time')
     return {
-        'count': find(collection, query).count(),
+        'count': find(collection, query, return_type="cusor").count(),
         'data': data,
         'page': page,   
         'limit': limit,

@@ -21,15 +21,34 @@ def check_only_user(_id):
 
 def reg_user(user):
     try:
-        province_id = user.get('province_id', None)
-        if province_id:
-            user.update({'province': find_one("city", {"_id": })})
-        insert('users' ,user)
+        user = update_loc(user)     
+        insert('users', user)
         return True
     except:
         print_err() 
         return False
 
 
-def update_user(id, info):
-    update('users', {'_id': id}, {'$set': info})    
+def update_user(_id, info):
+    info = update_loc(info) 
+    update('users', {'_id': _id}, {'$set': info})    
+    
+def update_loc(user):
+        area_id = user.get('area_id', None)  
+        user.update(
+            {
+                'province': find_one("city", {"_id": user.get('province_id')}).get("city_name")
+            }
+        )
+        user.update(
+            {
+                'city': find_one("city", {"_id": user.get('city_id')}).get("city_name")
+            }
+        )
+        if area_id != "":
+            user.update(
+                {
+                    'area': find_one("city", {"_id": area_id}).get("city_name")
+                }
+            )
+        return user

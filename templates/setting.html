@@ -8,21 +8,61 @@
         <span class="color_black">帐号管理</span> 
 
     </div>
-    <fieldset>                   		
+    <fieldset>               
     
-    <form action="/reg_user" method="post" id="reg_form">
+    <form action="/update_user" method="post" id="update_form">
         <input type='hidden' value='1' name='leval' />
 
         <div class="clearfix">
             <label for="xlInput">姓名或单位名称</label>
             <div class="input">
-            <input type="text" class="xlarge" value=""  name="name" />
+            <input type="text" class="xlarge" value="${user.get('name', '')}"  name="name" />
             </div>
         </div>
-
+        <div class="clearfix">
+            <label for="xlInput">位置</label>
+            <div class="input">
+           
+                <select class="loc_select" name="province_id" id="province" defvalue="11">
+                     % for provice in provice_list:
+                        % if  user.get('province_id', '') == provice.get('_id', ''):
+                            <option value="${provice.get('_id', '')}" selected=true>${provice.get('city_name', '')}</option>
+                        % else:
+                            <option value="${provice.get('_id', '')}" >${provice.get('city_name', '')}</option>
+                        %endif
+                        
+                     % endfor
+                </select>
+                
+                <select class="loc_select" name="city_id" id="city" >
+                    % for city in city_list:
+                        % if  user.get('city_id', '') == city.get('_id', ''):
+                            <option value="${city.get('_id', '')}" selected=true>${city.get('city_name', '')}</option>
+                        % else:
+                            <option value="${city.get('_id', '')}">${city.get('city_name', '')}</option>
+                        %endif
+                    % endfor    
+                </select>
+             <select id="area" class="loc_select" name="area_id">
+                 <option value="${user.get('area_id', '')}">${user.get('area', '')}</option>
+            </select>
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">密码</label>
+            <div class="input">
+                <input type="password" name="password" class="xlarge" value="${user.get('password', '')}" id="password" />
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">确认密码</label>
+            <div class="input">
+                <input type="password" id="cpassword" value="${user.get('password', '')}"  class="xlarge">
+            </div>
+        </div>
         <div class="actions">
-            <input type="button" class="btn success" id="reg_user_action" value="修改" />
-            <input type="button" class="btn"  id="reg_user_cancel" value="申请实名认证"> 
+            <input type="button" class="btn success" id="update_user_action" value="修改" />
+            <input type="button" class="btn"  id="reuest_real_auth" value="申请实名认证"> 
         </div> 
     </fieldset>                   		
 
@@ -31,7 +71,8 @@
 </div>
 </%block>
 <%block name='js'>
-<script src="/static/js/setting.js"></script>
+<script src="/static/js/settings.js"></script>
+<script src="/static/js/loc.js"></script>
 </%block>
 
 
