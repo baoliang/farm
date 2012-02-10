@@ -3,7 +3,7 @@
 
 <%block name='content'>
 
-<div class="page-header">
+<div class="page-header hide">
 	<div>
 		<span>
 			地点:${session.get('city','')}
@@ -32,7 +32,9 @@
           <button class="btn success">搜索</button> 
       </span>
       <span>
-          <button id="send_news" class="btn danger">发布新闻</button> 
+        %if session.get('_id', None) == 'admin':
+        <a id="send_news" href="/news/send_news" class="btn danger">发布新闻</a>
+        %endif
       </span>
   
 </div>
@@ -64,11 +66,11 @@
                         ${news.get('auther', '')}
                    </td>
                    <td>
-                        ${news.get('title', '')}
+                        <a href="/news/detail?_id=${news.get('_id',None)}">${news.get('title', '')}</a>
                    </td>
 
                    <td>
-                        ${news.get('create_time', '')}
+                        ${str(news.get('create_time', '')).split('.')[0]}
                    </td>
             </tr>          
           % endfor
@@ -98,42 +100,7 @@
 		
 
 </div>
-<div id="send_news_window" class="hide dialog">
-    <div class="dialog_title">
-        <span class="color_black">发布新闻</span> 
-        <a href="javascript:void(0)" id="add_dialog_close" > 
-        <span class="dialog_close close">x</span>
-         </a>
-    </div>
-    <fieldset>                   		
-    
-    <form action="/create_info" method="post">
-        <input type='hidden' value='news' name='collection' />
-        <input type='hidden' value='/' name='return' />
-		<input name='auther' value='${session.get('name')}' type='hidden' />
-        <div class="clearfix">
-            <label for="xlInput">标题</label>
-            <div class="input">
-            <input type="text" class="xlarge" value=""  name="title" />
-            </div>
-        </div>
-        <div class="clearfix">
-            <label for="xlInput">内容</label>
-            <div class="input">
-                <textarea class="xxlarge" name="centent" id="textarea" rows="3" ></textarea>
-            </div>
-        </div>
-  
-    
-        <div class="actions">
-            <input type="submit" class="btn success" id="add_dialog_submit" value="发布"" />
-            <input type="button" class="btn"  id="add_dialog_cancel" value="暂不注册"> 
-        </div> 
-    </fieldset>                   		
 
-    </form>
-
-</div>
 
 </%block>
 <%block name='js'>

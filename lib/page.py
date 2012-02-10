@@ -20,7 +20,7 @@ def get_page(
     '''        
     page = int(query.get('page', 1))  
     if page == 1: query  = {}
-    if (int(query.get('old_page', 1)) >= int(query.get('page', 1))):
+    if (int(query.get('old_page', 1)) <= int(query.get('page', 1))):
         query_type = '$lt'
     else:
         query_type = '$gt'
@@ -36,6 +36,7 @@ def get_page(
     if query.has_key('page'): query.pop('page')
     if query.has_key('old_page'): query.pop('old_page')
     if query.has_key('last_time'): query.pop('last_time')
+    print query
     collection_data = find(collection, query, limit=limit)
     data = list(collection_data)
     length = len(data)

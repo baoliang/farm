@@ -1,0 +1,125 @@
+<%inherit file='../base.html' />
+
+
+<%block name='content'>
+
+<div class="page-header">
+	<div>
+		<span>
+			地点:
+			          <select class="loc_select" name="province_id" id="province" defvalue="11">
+                     % for provice in provice_list:
+                        <option value="${provice.get('_id', '')}">${provice.get('city_name', '')}</option>
+                     % endfor
+                </select>
+                
+                <select class="loc_select" name="city_id" id="city" >
+                    % for city in city_list:
+                        <option value="${city.get('_id', '')}">${city.get('city_name', '')}</option>
+                    % endfor    
+                </select>
+             <select id="area" class="loc_select" name="area_id">
+                 <option value=""></option>
+            </select>
+		</span>
+		<span></span>
+	</div>
+	<div class="margin_top_5px">
+		<span>
+			类型:${session.get('type','')}
+			<button class="btn default">农业</button>
+			<button class="btn default">牧业</button>
+			<button class="btn default">渔业</button>
+			<button class="btn default">林业</button>     
+		</span>
+
+	</div>
+  
+
+
+</div>
+<div class="margin_top_5px">
+      <span>
+          关键词:
+          <input class="medium" id="prependedInput" name="prependedInput" size="16" type="text" />
+          <button class="btn success">搜索</button> 
+      </span>
+      <span>
+        %if session.get('_id', None):
+            <a id="send_news" href="/sell/send_sell" class="btn danger">发布供应信息</a>
+        %endif
+      </span>
+  
+</div>
+<table>
+	<thead>
+           <!-- 表字段 -->
+      <tr>
+       	  
+              <th width=100>
+            	      发布人
+              </th>
+              <th>
+              		新闻标题
+              </th>
+              <th>
+              	发布时间	
+              </th>
+    
+              <!--表字段-->
+		</tr>
+	</thead>
+	<tbody>
+	
+       <!--表数据-->
+      
+          % for news in pages.get('data', []):
+            <tr>
+                   <td>
+                        ${news.get('auther', '')}
+                   </td>
+                   <td>
+                        <a href="/news/detail?_id=${news.get('_id',None)}">${news.get('title', '')}</a>
+                   </td>
+
+                   <td>
+                        ${str(news.get('create_time', '')).split('.')[0]}
+                   </td>
+            </tr>          
+          % endfor
+         
+		
+	</tbody>
+           
+</table>
+ <div>
+   <input type="hidden" id="last_time" value="${pages['last_time']}" />
+	<div class="float_left">
+	共${pages['count']}条
+	
+    </div>
+	<div class="float_right">
+
+      <a href="javascript:void(0)" id="first_page">首页</a>
+    %if pages['page'] !=1:
+	<a href="javascript:void(0)" id="pre_page"> 上一页</a>
+	%endif
+    %if pages['count']/pages['limit'] >= 1:
+	<a href="javascript:void(0)" id="next_page"> 下一页 </a>
+	%endif
+    <input type="hidden" id="old_page" value="${pages['page']}"  />
+
+   </div>	
+		
+
+</div>
+
+
+</%block>
+<%block name='js'>
+<script src="/static/js/loc.js"></script>
+<script src="/static/js/sell.js"></script>
+</%block>
+
+
+

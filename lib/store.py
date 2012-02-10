@@ -1,5 +1,6 @@
 from lib.db import db_update, db
 import pymongo
+from pymongo.objectid import ObjectId
 import datetime
 import settings_run
 def update(collection, query, data_dic):
@@ -35,5 +36,7 @@ def find(collection, query={}, limit=0, sort=-1, return_type="list"):
 
 
 def find_one(collection, query={}):
+    if query.has_key('_id')  and collection not in ['users', 'city']:
+        query.update({'_id': ObjectId(query.get('_id'))})
     return db[collection].find_one(query)
     

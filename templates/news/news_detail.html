@@ -1,0 +1,16 @@
+<%inherit file='../base.html' />
+
+<%block name='content'>
+<div>
+    ${news.get('content', '')}
+</div>
+<div>
+<a href="${session.get('url')}" class="btn success">返回</a>
+</div>
+</%block>
+<%block name='js'>
+
+</%block>
+
+
+

@@ -15,13 +15,13 @@ from dic import level_html, collection_html, args
 from lib.utils import form2dic
 from lib.utils import now, DatetimeJSONEncoder
 
+
 @app.before_request
 def before_request():
-    white_list = ['/login']
-    #if not session.get('_id', None) and  request.path != '/login':
-    pass
-
-
+    white_list = ['/news/news_send_news']
+    if not session.get('_id', None) and  request.path in white_list:
+        return redirect('/')
+        
 @app.route('/admin')
 def admin():
     return render_template('admin/login.html')
@@ -44,24 +44,64 @@ def index():
     '''
     query = form2dic(request.args)
     query.update({'last_time': session.get('last_time', now())})
-    if (int(session.get('pages', {'page': 1}).get('page', 1)) == int(query.get('page', 1))) and  int(query.get('page', 1)) !=1:  
-        print query.get('page')
-        print 'dddd'
-        pages = session['pages']
-    else:
-        print query
-        pages = get_info_list(
-            'news', 
-            query=query,
-            
-        ) 
-    session.update({
-        'last_time': pages.get('last_time', now()),
-        'pages': pages   
-    })
-    
+    pages = get_info_list(
+        'news', 
+        query=query,
+        
+    ) 
+    session['url'] = request.url
+    session['last_time'] = pages.get('last_time')
+
     return render_template('index.html', pages=pages) 
 
+@app.route('/news/send_news')
+def send_news():
+    '''
+    @todo:index page:
+    '''
+
+    return render_template('news/send_news.html')
+
+@app.route('/news/detail')
+def news_detail():
+    '''
+    @todo:index page:
+    '''
+    return render_template(
+        'news/news_detail.html',
+        news=get_one_info('news', {'_id': request.args.get('_id')})
+    )    
+
+@app.route('/')
+def sell():
+    '''
+    @todo:index page:
+    '''
+    query = form2dic(request.args)
+    query.update({'last_time': session.get('last_time', now())})
+    pages = get_info_list(
+        'sell', 
+        query=query,
+        
+    ) 
+    session['url'] = request.url
+    session['last_time'] = pages.get('last_time')
+
+    return render_template(
+        'sell/index.html',
+        pages = pages,
+        provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
+        city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1)
+    )     
+    
+@app.route('/sell/send_sell')
+def send_news():
+    '''
+    @todo:index page:
+    '''
+
+    return render_template('sell/send_sell.html')
+    
 @app.route('/user')
 def user():
     '''
