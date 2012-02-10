@@ -8,8 +8,7 @@
                     option += "<option value='"+item._id+"'>"+item.city_name+"</option>"
                 });
                 $('#'+html_id).html(option);
-        });
-        
+        });   
     }
     $("#province").change(function(){
         $('#city,#area').html("");

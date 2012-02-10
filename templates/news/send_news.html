@@ -1,0 +1,54 @@
+<%inherit file='../base.html' />
+
+<%block name='content'>
+
+<div id="send_news_window" class="">
+    <div class="dialog_title">
+        <span class="color_black">发布新闻</span> 
+        <a href="javascript:void(0)" id="add_dialog_close" > 
+        <span class="dialog_close close"></span>
+         </a>
+    </div>
+    <fieldset>                   		
+    
+    <form action="/create_info" method="post">
+        <input type='hidden' value='news' name='collection' />
+        <input type='hidden' value='/' name='return' />
+		<input name='auther' value='${session.get('name')}' type='hidden' />
+        <div class="clearfix">
+            <label for="xlInput">标题</label>
+            <div class="input">
+            <input type="text" class="xlarge" value=""  name="title" />
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">内容</label>
+            <div class="input">
+                <textarea id="editor_id" name="content" style="width:800px;height:400px;"></textarea>
+            </div>
+        </div>
+    
+        <div class="actions">
+            <input type="submit" class="btn success" id="add_dialog_submit" value="发布"" />
+            <input type="button" class="btn"  id="add_dialog_cancel" value="暂不发布"> 
+        </div> 
+    </fieldset>                   		
+
+    </form>
+
+</div>
+
+</%block>
+<%block name='js'>
+<script src="/static/js/kindeditor-min.js"></script>
+<script src="/static/js/zh_CN.js"></script>
+<script>
+     var editor;
+        KindEditor.ready(function(K) {
+                editor = K.create('#editor_id');
+        });
+		</script>
+</%block>
+
+
+

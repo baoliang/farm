@@ -1,7 +1,21 @@
-var farm = {};
+window.farm = {};
 $('#alert_close').click(function(){
     $('#alert').hide();
 });
+farm.page_go = function(params){
+    var old_page = params['old_page']
+    $('#next_page').live('click', function(){
+        location.href="/?old_page="+old_page+"&page="+(parseInt(old_page)+parseInt(1))+"";  
+    });
+
+    $('#pre_page').live('click', function(){
+        if ((parseInt(old_page)-1) === 1){
+            location.href = params["return_url"];
+        }else{
+           location.href="/?old_page="+old_page+"&page="+(parseInt(old_page)-1)+"";  
+        }
+    });
+}
 function alert(content){
 	$("#alert_content").html("<strong>提示!&nbsp</strong>"+content);
 	center_show("alert");

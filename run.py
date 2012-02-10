@@ -1,11 +1,20 @@
 #!/usr/bin/python
 import os
-from views import app
 import settings_run
-app.debug = settings_run.DEBUG
-app.secret_key = os.urandom(24)
+from flask import Flask
 from flaskext.mako import init_mako
-app.config.from_object('settings_run')
-init_mako(app)
+from views.views import app
+from views.sell_view import sell
+from views.account_view import account
+from views.news_view import news
+web = Flask(__name__)
+web.register_blueprint(app)
+web.register_blueprint(sell)
+web.register_blueprint(account)
+web.register_blueprint(news)
+web.debug = settings_run.DEBUG
+web.secret_key = os.urandom(24)
+web.config.from_object('settings_run')
+init_mako(web)
 if __name__ ==  '__main__':
-    app.run('127.0.0.1',5000)
+    web.run('127.0.0.1',5000)

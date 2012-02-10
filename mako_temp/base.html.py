@@ -4,7 +4,7 @@ UNDEFINED = runtime.UNDEFINED
 __M_dict_builtin = dict
 __M_locals_builtin = locals
 _magic_number = 7
-_modified_time = 1328604485.642576
+_modified_time = 1328714694.2721131
 _template_filename = u'templates/base.html'
 _template_uri = u'base.html'
 _source_encoding = 'utf-8'
@@ -30,7 +30,7 @@ def render_body(context,**pageargs):
         
 
         # SOURCE LINE 9
-        __M_writer(u'\n\n</head>\n<body>\n<div class="topbar">\n  <div class="fill">\n    <div class="container menu_container">\n      <a class="brand" href="#"><img src="/static/img/farm.jpg" /></a>\n      <ul class="nav">\n        <li id="menu_news"><a href="/news">\u8d44\u8baf\u4e13\u680f</a></li>\n        <li><a href="/sell">\u4f9b\u5e94\u4fe1\u606f</a></li>\n        <li><a href="/buy">\u6c42\u8d2d\u4fe1\u606f</a></li>\n        <li><a href="/teach">\u6280\u672f\u63a8\u5e7f</a></li>\n        <li><a href="#contact">\u62db\u5546\u52a0\u76df</a></li>\n        <li><a href="#about">\u5408\u4f5c\u7ecf\u8425</a></li>\n        <li><a href="#contact">\u62db\u8d44\u7533\u8bf7</a></li>\n        <li><a href="#about">\u9ec4\u9875\u5c55\u793a</a></li>        \n      </ul>\n        <form action="/login" class="login" method="POST">\n')
+        __M_writer(u'\n\n</head>\n<body>\n<div class="topbar">\n  <div class="fill">\n    <div class="container menu_container">\n      <a class="brand" href="#"><img src="/static/img/farm.jpg" /></a>\n      <ul class="nav">\n        <li id="menu_news"><a href="/">\u8d44\u8baf\u4e13\u680f</a></li>\n        <li><a href="/sell">\u4f9b\u5e94\u4fe1\u606f</a></li>\n        <li><a href="/buy">\u6c42\u8d2d\u4fe1\u606f</a></li>\n        <li><a href="/teach">\u6280\u672f\u63a8\u5e7f</a></li>\n        <li><a href="#contact">\u62db\u5546\u52a0\u76df</a></li>\n        <li><a href="#about">\u5408\u4f5c\u7ecf\u8425</a></li>\n        <li><a href="#contact">\u62db\u8d44\u7533\u8bf7</a></li>\n        <li><a href="#about">\u9ec4\u9875\u5c55\u793a</a></li>        \n      </ul>\n        <form action="/login" class="login" method="POST">\n')
         # SOURCE LINE 28
         if  session.get('_id', {}):
             # SOURCE LINE 29
