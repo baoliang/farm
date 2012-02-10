@@ -27,6 +27,8 @@ def remove(collection, query={}, real=False):
 
 def find(collection, query={}, limit=0, sort=-1):
     query.update({'st_code': settings_run.ST_CODE['norm']})
+    print query
+    print collection
     return list(db[collection].find(query).sort('create_time', sort).limit(limit))
 
 

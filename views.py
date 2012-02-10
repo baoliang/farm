@@ -1,7 +1,4 @@
 # _*_ coding: utf-8 _*_
-from flaskext.mako import render_template
-from flask import  session, request, make_response, redirect, jsonify as return_json
-from app import app
 from service.account import vertify_user
 from service.account import check_only_user
 from service.account import update_user
@@ -14,6 +11,9 @@ from service.info import create_info
 from dic import level_html, collection_html, args
 from lib.utils import form2dic
 from lib.utils import now, DatetimeJSONEncoder
+from flaskext.mako import render_template
+from flask import  session, request, make_response, redirect, jsonify as return_json
+from app import app
 
 @app.before_request
 def before_request():
