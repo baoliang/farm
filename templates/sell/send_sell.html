@@ -4,35 +4,60 @@
 
 <div id="send_news_window" class="">
     <div class="dialog_title">
-        <span class="color_black">发布新闻</span> 
+        <span class="color_black">发布供应信息</span> 
         <a href="javascript:void(0)" id="add_dialog_close" > 
         <span class="dialog_close close"></span>
          </a>
     </div>
     <fieldset>                   		
    
-    <form action="/create_info?return=/sell" method="post">
-        <input type='hidden' value='news' name='collection' />
+    <form action="/create_info" method="post">
+        <input type='hidden' value='sell' name='collection' />
 		<input name='auther' value='${session.get('name')}' type='hidden' />
+        <input name='auther_id' value='${session.get('_id')}' type='hidden' />
+            <input type='hidden' value='/sell' name='return' />
         <div class="clearfix">
-            <label for="xlInput">现货期货</label>
+            <label for="xlInput">标题</label>
             <div class="input">
-            期货<input type="checkbox" class="xlarge" value=""  name="title" />
-            //信息有效时间段
-            <input type="text" class="xlarge" value=""  name="title" />
-            <input type="text" class="xlarge" value=""  name="title" />
-            现货<input type="checkbox" class="xlarge" value=""  name="title" />
-            //信息有效时间段
+            
+          <input type="text" class="xlarge" value=""  name="title" />
+          
             
             </div>
         </div>
-        //如果选中行业就不需要填
+        <div class="clearfix">
+            <label for="xlInput">现货期货</label>
+            <div class="input">
+            
+           
+            <input type="radio" class="radio"  value="0"  name="money_type" />期货
+            <input type="radio" class="radio"  value="1" checked="checked"  name="money_type" />现货
+     
+            
+            </div>
+        </div>
+        <div class="clearfix">
+            <label for="xlInput">有效时间</label>
+            <div class="input">
+          
+            <input type="text" class="" value=""  name="start_time" />
+                ------
+            <input type="text" class="" value=""  name="end_time" />
+        
+            
+            </div>
+        </div>
+       
         <div class="clearfix">
             <label for="xlInput">行业</label>
             <div class="input">
             
-          <input type="checkbox" class="xlarge" value=""  name="title" />
-            //信息有效时间段
+            <select  class="xlarge"  name="type" >
+                <option value="0">农业</option>
+                <option value="1">牧业</option>
+                <option value="2">渔业</option>
+                <option value="3">林业</option>
+            </select>
             
             </div>
         </div>
@@ -45,49 +70,50 @@
         <div class="clearfix">
             <label for="xlInput">规格</label>
             <div class="input">
-                <input type="text" class="xlarge" value=""  name="title" />
+                <input type="text" class="xlarge" value=""  name="规格" />
             </div>
         </div>
         <div class="clearfix">
             <label for="xlInput">数量</label>
             <div class="input">
-                <input type="text" class="xlarge" value=""  name="title" />
+                <input type="text" class="xlarge" value=""  name="num" />
             </div>
         </div>
         <div class="clearfix">
             <label for="xlInput">价格</label>
             <div class="input">
-                <input type="text" class="xlarge" value=""  name="title" />
+                <input type="text" class="xlarge" value=""  name="price" />
             </div>
         </div>
         
         <div class="clearfix">
             <label for="xlInput">出产地点</label>
             <div class="input">
-                <input type="text" class="xlarge" value=""  name="title" />
+                <input type="text" class="xlarge" value=""  name="from_loc" />
             </div>
         </div>
         <div class="clearfix">
             <label for="xlInput">交货地点</label>
             <div class="input">
-                <input type="text" class="xlarge" value=""  name="title" />
+                <input type="text" class="xlarge" value=""  name="pay_loc" />
             </div>
         </div>
-        //默认自已
+       
         <div class="clearfix">
             <label for="xlInput">供应方</label>
             <div class="input">
-                <input type="text" class="xlarge" value=""  name="title" />
+                <input type="text" class="xlarge" value="${session.get('name', '')}"  name="pay_name" />
             </div>
         </div>
-        //默认自已
+       
         <div class="clearfix">
             <label for="xlInput">联系人</label>
             <div class="input">
-                <input type="text" class="xlarge" value=""  name="title" />
+                <input type="text" class="xlarge" value="${session.get('name', '')}"  name="link_man" />
             </div>
         </div>
-        //默认自已
+       
+       
         <div class="clearfix">
             <label for="xlInput">联系电话</label>
             <div class="input">
@@ -100,14 +126,14 @@
         <div class="clearfix">
             <label for="xlInput">内容</label>
             <div class="input">
-                <textarea class="xxlarge" name="centent" id="textarea" rows="3" ></textarea>
+               <textarea id="editor_id" name="content" class="kindeditor_content"></textarea>
             </div>
         </div>
   
     
         <div class="actions">
-            <input type="submit" class="btn success" id="add_dialog_submit" value="发布"" />
-            <input type="button" class="btn"  id="add_dialog_cancel" value="暂不注册"> 
+            <input type="submit" class="btn success"  value="发布"" />
+            <a href="/sell" class="btn">暂不发布</a> 
         </div> 
     </fieldset>                   		
 
@@ -117,8 +143,16 @@
 
 </%block>
 <%block name='js'>
-
+<script src="/static/js/kindeditor-min.js"></script>
+<script src="/static/js/zh_CN.js"></script>
+<script>
+     var editor;
+        KindEditor.ready(function(K) {
+                editor = K.create('#editor_id');
+        });
+		</script>
 </%block>
+
 
 
 

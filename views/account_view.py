@@ -12,6 +12,7 @@ from service.info import create_info
 from dic import level_html, collection_html, args
 from lib.utils import form2dic
 from lib.utils import now, DatetimeJSONEncoder
+from help.tools import set_user_session
 from flaskext.mako import render_template
 from flask import  session, request, make_response, redirect, jsonify as return_json
 account = Blueprint('account_view', __name__)
@@ -26,8 +27,7 @@ def login():
         request.form.get('password', '')
     )
     if user:
-        session['_id'] = user.get('_id', None)
-        session['name'] = user.get('name', None)
+        session.update(set_user_session({}, user))
         return redirect('/')
     else:
         session['err_msg'] = u"帐号密码错误"
@@ -41,8 +41,7 @@ def reg_user_by_form():
     '''
     res = reg_user(form2dic(request.form)) 
     if res:
-        session['_id'] = request.form['_id']
-        session['name'] = request.form['name']
+        session.update(set_user_session({}, res))
         return redirect('/')
     else:
        return render_template('error.html', name="服务器错误")

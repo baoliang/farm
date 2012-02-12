@@ -152,3 +152,11 @@ opacity: 0.25;
 .loc_select {
     width: 100px;
 }
+.kindeditor_content {
+    width:800px;
+    height:400px;
+ }
+ .content {
+    width:960px;
+  
+ }

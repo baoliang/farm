@@ -4,7 +4,7 @@ MONGO_PORT = 27017
 DB_NAME = "farm_dev"
 PAGE_LIMIT = 100
 DEFAULT_LIMIT = 10
-DEBUG = False
+DEBUG = True
 #状态码
 ST_CODE = {
     'norm': 0,
