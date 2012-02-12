@@ -40,9 +40,9 @@
             <label for="xlInput">有效时间</label>
             <div class="input">
           
-            <input type="text" class="" value="" id="start_time" name="start_time" />
+            <input type="text" class="" value=""  name="start_time" />
                 ------
-            <input type="text" class="" value="" id="end_time"  name="end_time" />
+            <input type="text" class="" value=""  name="end_time" />
         
             
             </div>
@@ -145,17 +145,12 @@
 <%block name='js'>
 <script src="/static/js/kindeditor-min.js"></script>
 <script src="/static/js/zh_CN.js"></script>
-<script src="/static/js/date_time.js"></script>
 <script>
      var editor;
         KindEditor.ready(function(K) {
                 editor = K.create('#editor_id');
         });
-        $('#start_time').click(function(){
-            setDay(this);
-        });
 		</script>
-        
 </%block>
 
 

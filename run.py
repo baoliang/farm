@@ -8,6 +8,11 @@ from views.sell_view import sell
 from views.account_view import account
 from views.news_view import news
 from views import bp
+from meinheld import patch 
+
+patch.patch_all() 
+
+from meinheld import server 
 web = Flask(__name__)
 web.register_blueprint(bp)
 web.register_blueprint(app)
@@ -18,5 +23,4 @@ web.debug = settings_run.DEBUG
 web.secret_key = os.urandom(24)
 web.config.from_object('settings_run')
 init_mako(web)
-if __name__ ==  '__main__':
-    web.run('192.168.1.254',5000)
+

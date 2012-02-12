@@ -105,6 +105,12 @@ def get_loc_by_ip():
     res.close()
     return html
     
+@app.route('/sell/detail')
+def detail_sell():
+    return render_template(
+        'news/sell_detail.html',
+        news=get_one_info('sell', {'_id': request.args.get('_id')})
+    )   
     
 
      
