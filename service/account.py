@@ -23,10 +23,10 @@ def reg_user(user):
     try:
         user = update_loc(user)     
         insert('users', user)
-        return True
+        return user
     except:
         print_err() 
-        return False
+        return None
 
 
 def update_user(_id, info):
@@ -45,10 +45,11 @@ def update_loc(user):
                 'city': find_one("city", {"_id": user.get('city_id')}).get("city_name")
             }
         )
-        if area_id != "":
+        print area_id
+        if area_id:
             user.update(
                 {
-                    'area': find_one("city", {"_id": area_id}).get("city_name")
+                    'area': find_one("city", {"_id": area_id}).get("city_name", '')
                 }
             )
         return user

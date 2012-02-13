@@ -44,7 +44,7 @@ def reg_user_by_form():
         session.update(set_user_session({}, res))
         return redirect('/')
     else:
-       return render_template('error.html', name="服务器错误")
+       return render_template('info.html', info=u"服务器错误")
 
 
 @account.route('/reg')

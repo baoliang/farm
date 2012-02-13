@@ -1,5 +1,6 @@
 # _*_ coding: utf-8 _*_
 from flask import Blueprint 
+import os
 import simplejson
 from service.city import get_city_by_id
 from service.info import get_info_list
@@ -11,26 +12,23 @@ from lib.utils import form2dic
 from lib.utils import now, DatetimeJSONEncoder
 from flaskext.mako import render_template
 from lib.cach import get_cach, set_cach
+from help.tools import set_page_session
+from help.tools import get_query_page
+from help.tools import get_query
+from help.tools import get_query
+import random
 from flask import  session, request, make_response, redirect, jsonify as return_json
 app = Blueprint('views', __name__)
-    
+
+@app.before_request
+def before():
+    if 'sid' not in session:
+        session['sid'] = str(random.randint(10**10,10**20))
+        
+        
 @app.route('/get_city')    
 def get_city():
-    _id = request.args.get('_id')
-    if _id in ["1", "2", "9"]:
-        _id  = get_one_info(
-                'city',
-                query={"f_id": _id}
-        ).get("_id") 
- 
-    city_list = get_info_list(
-        'city',
-        query={"f_id": _id},
-        return_type = "list",
-        sort=1
-    )
-    
-    return return_json(city_list=simplejson.dumps(city_list, cls=DatetimeJSONEncoder))
+    return return_json(city_list=get_city_by_id(request.args.get('_id')))
 
     
 
@@ -39,23 +37,6 @@ def render_to():
         return render_template(request.args.get('html'),
             info=eval(request.args.get('info')),
         )
-
-@app.route('/info_list')
-def info_list():
-    query = request.args.get('query', {})
-    collection = request.args.get('collection', '')
-    if query:
-        query = eval(query)
-    return render_template(
-        collection_html.get(collection, '404.html'),
-        info_list=get_info_list(
-            collection,
-            query,
-            request.args.get('page','1'),
-            request.args.get('limit', settings.PAGE_LIMIT),
-    ))
-    
-
 
 @app.route('/create_info', methods=['GET', 'POST']) 
 def create_info_action():
@@ -115,4 +96,59 @@ def detail_sell():
     )   
     
 
-     
+
+@app.route('/')
+def index():
+    '''
+    @todo:index page:
+    '''
+    pages = get_query_page(
+        session.get('page', None),
+        get_query(request.values, session.get('boot_time', now())),
+        session.get('sid'),
+        'sell'
+    )
+    return render_template(
+        'index.html',
+        pages=pages,
+        search_value=request.args.get('title','')
+    ) 
+
+@app.route('/news/send_news')
+def send_news():
+    return render_template('news/send_news.html')
+
+@app.route('/news/detail')
+def news_detail():
+    '''
+    @todo:index page:
+    '''
+    return render_template(
+        'news/news_detail.html',
+        news=get_one_info('news', {'_id': request.args.get('_id')})
+    )    
+         
+@app.route('/sell')
+def sell_index():
+    pages = get_query_page(
+        session.get('page', None),
+        get_query(request.values, session.get('boot_time', now())),
+        session.get('sid'),
+        'sell'
+    )
+    session.update(set_page_session(request.url, pages))
+    return render_template(
+        'sell/index.html',
+        pages = pages,
+        provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
+        city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1),
+        search_value=search_value
+    )     
+    
+@app.route('/sell/send_sell')
+def send_sell():
+    '''
+    @todo:index page:
+    '''
+
+    return render_template('sell/send_sell.html')

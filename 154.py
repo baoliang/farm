@@ -11,9 +11,7 @@ from views.news_view import news
 web = Flask(__name__)
 
 web.register_blueprint(app)
-web.register_blueprint(sell)
 web.register_blueprint(account)
-web.register_blueprint(news)
 web.debug = settings_run.DEBUG
 web.secret_key = os.urandom(24)
 web.config.from_object('settings_run')

@@ -31,18 +31,17 @@ def get_page(
     if query.has_key('page'): query.pop('page')
     if query.has_key('old_page'): query.pop('old_page')
     if query.has_key('boot_time'): query.pop('boot_time')
-    print query
+   
     collection_data = find(collection, query, limit=limit)
-  
+    
     data = list(collection_data)
-
+    print query
+    print data 
     length = len(data)
     if length > 0:
         boot_time = data[length-1].get('create_time')
     else:
         boot_time = ''
-
-    print boot_time
     if query.has_key('create_time'): query.pop('create_time')
     return {
         'count': find(collection, query, return_type="cusor").count(),
