@@ -3,33 +3,13 @@
 
 <%block name='content'>
 
-<div class="page-header hide">
-	<div>
-		<span>
-			地点:${session.get('city','')}
-			<button class="btn danger">选择地区</button>
-		</span>
-		<span></span>
-	</div>
-	<div class="margin_top_5px">
-		<span>
-			类型:${session.get('type','')}
-			<button class="btn default">农业</button>
-			<button class="btn default">牧业</button>
-			<button class="btn default">渔业</button>
-			<button class="btn default">林业</button>     
-		</span>
 
-	</div>
-  
-
-
-</div>
 <div class="margin_top_5px">
       <span>
           关键词:
-          <input class="medium" id="prependedInput" name="prependedInput" size="16" type="text" />
-          <button class="btn success">搜索</button> 
+          
+          <input class="medium" id="search_value" name="" size="16" value="" type="text" />
+          <button class="btn success" id="search_button">搜索</button> 
       </span>
       <span>
         %if session.get('_id', None) == 'admin':
@@ -80,7 +60,7 @@
            
 </table>
  <div>
-   <input type="hidden" id="last_time" value="${pages['last_time']}" />
+  
 	<div class="float_left">
 	共${pages['count']}条
 	
@@ -101,7 +81,7 @@
 
 </div>
 
-
+${session}
 </%block>
 <%block name='js'>
 <script src="/static/js/news.js"></script>

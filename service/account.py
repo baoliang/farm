@@ -31,7 +31,7 @@ def reg_user(user):
 
 def update_user(_id, info):
     info = update_loc(info) 
-    update('users', {'_id': _id}, {'$set': info})    
+    update('users', {'_id': _id}, info)    
     
 def update_loc(user):
         area_id = user.get('area_id', None)  

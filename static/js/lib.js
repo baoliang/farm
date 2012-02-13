@@ -16,6 +16,17 @@ farm.page_go = function(params){
         }
     });
 }
+
+farm.search = function(params){
+     $('#search_button').click(function(){
+        
+        var query = "";
+        $.each(params['query'], function(index, value){
+            query +=  index + "=" +$("#search_value").val() +"&"
+        });
+        location.href=encodeURI(params['url'] + "?" + query)
+    });
+}
 function alert(content){
 	$("#alert_content").html("<strong>提示!&nbsp</strong>"+content);
 	center_show("alert");

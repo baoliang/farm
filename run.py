@@ -7,14 +7,12 @@ from views.views import app
 from views.sell_view import sell
 from views.account_view import account
 from views.news_view import news
-from views import bp
 from meinheld import patch 
 
 patch.patch_all() 
 
 from meinheld import server 
 web = Flask(__name__)
-web.register_blueprint(bp)
 web.register_blueprint(app)
 web.register_blueprint(sell)
 web.register_blueprint(account)

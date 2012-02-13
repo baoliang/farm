@@ -4,10 +4,10 @@ from pymongo.objectid import ObjectId
 import datetime
 import settings_run
 def update(collection, query, data_dic):
-    db_update[collection].update(query, data_dic, upsert=True, safe=True )
+    db_update[collection].update(query, {'$set': data_dic}, upsert=True, safe=True )
 
 def insert(collection, data, st_code=settings_run.ST_CODE['norm']):
-    data.update({'create_time': datetime.datetime.now()})
+    data.update({'create_time': str(datetime.datetime.now())})
     data.update({'st_code': st_code})
     db_update[collection].insert(data, safe=True)
     
@@ -36,7 +36,7 @@ def find(collection, query={}, limit=0, sort=-1, return_type="list"):
         return list(result)
 
 def find_one(collection, query={}):
-    if query.has_key('_id')  and collection not in ['users', 'city']:
+    if query.has_key('_id')  and collection not in ['users', 'city', 'cach']:
         query.update({'_id': ObjectId(query.get('_id'))})
     return db[collection].find_one(query)
     

@@ -17,41 +17,39 @@ def get_page(
     @params page: 页数
     @params limit: 数据数量
     @return:
-    '''        
+    '''      
+
     page = int(query.get('page', 1))  
-    if page == 1: query  = {}
-    if (int(query.get('old_page', 1)) <= int(query.get('page', 1))):
-        query_type = '$lt'
-    else:
-        query_type = '$gt'
-    query.update(
-        {
-            'create_time': {
-                query_type: (
-                    query.get('last_time', now())
-                )
-            },
-        }
-    )
+    boot_time = query.get('boot_time', None)
+    if not boot_time or page == 1:
+        boot_time = now()
+    query['create_time'] = {
+               '$lt': str(boot_time)
+                
+            }
+ 
     if query.has_key('page'): query.pop('page')
     if query.has_key('old_page'): query.pop('old_page')
-    if query.has_key('last_time'): query.pop('last_time')
+    if query.has_key('boot_time'): query.pop('boot_time')
     print query
     collection_data = find(collection, query, limit=limit)
+  
     data = list(collection_data)
+
     length = len(data)
-    if length:        
-        last_time = data[length - 1]['create_time']
+    if length > 0:
+        boot_time = data[length-1].get('create_time')
     else:
-        last_time = None
-    
+        boot_time = ''
+
+    print boot_time
     if query.has_key('create_time'): query.pop('create_time')
     return {
         'count': find(collection, query, return_type="cusor").count(),
         'data': data,
         'page': page,   
         'limit': limit,
-        'last_time': last_time,
+        'boot_time': boot_time,
     }
     
     

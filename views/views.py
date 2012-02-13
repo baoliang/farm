@@ -10,6 +10,7 @@ from dic import level_html, collection_html, args
 from lib.utils import form2dic
 from lib.utils import now, DatetimeJSONEncoder
 from flaskext.mako import render_template
+from lib.cach import get_cach, set_cach
 from flask import  session, request, make_response, redirect, jsonify as return_json
 app = Blueprint('views', __name__)
     
@@ -108,8 +109,9 @@ def get_loc_by_ip():
 @app.route('/sell/detail')
 def detail_sell():
     return render_template(
-        'news/sell_detail.html',
-        news=get_one_info('sell', {'_id': request.args.get('_id')})
+        'sell/detail_sell.html',
+        info=get_one_info('sell', {'_id': request.args.get('_id')})
+      
     )   
     
 

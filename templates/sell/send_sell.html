@@ -1,5 +1,7 @@
 <%inherit file='../base.html' />
-
+<%block name='css'>
+<link type="text/css" href="/static/css/ui-lightness/jquery-ui-1.8.17.custom.css" rel="stylesheet" />	
+</%block>
 <%block name='content'>
 
 <div id="send_news_window" class="">
@@ -11,7 +13,7 @@
     </div>
     <fieldset>                   		
    
-    <form action="/create_info" method="post">
+    <form action="/create_info" id="post_form" method="post">
         <input type='hidden' value='sell' name='collection' />
 		<input name='auther' value='${session.get('name')}' type='hidden' />
         <input name='auther_id' value='${session.get('_id')}' type='hidden' />
@@ -20,7 +22,7 @@
             <label for="xlInput">标题</label>
             <div class="input">
             
-          <input type="text" class="xlarge" value=""  name="title" />
+          <input type="text" class="xlarge" id="title" value=""  name="title" />
           
             
             </div>
@@ -53,10 +55,10 @@
             <div class="input">
             
             <select  class="xlarge"  name="type" >
-                <option value="0">农业</option>
-                <option value="1">牧业</option>
-                <option value="2">渔业</option>
-                <option value="3">林业</option>
+                <option value="农业">农业</option>
+                <option value="牧业">牧业</option>
+                <option value="渔业">渔业</option>
+                <option value="林业">林业</option>
             </select>
             
             </div>
@@ -64,13 +66,13 @@
         <div class="clearfix">
             <label for="xlInput">种类</label>
             <div class="input">
-                <input type="text" class="xlarge" value=""  name="title" />
+                <input type="text" class="xlarge" value=""  name="spec" />
             </div>
         </div>
         <div class="clearfix">
             <label for="xlInput">规格</label>
             <div class="input">
-                <input type="text" class="xlarge" value=""  name="规格" />
+                <input type="text" class="xlarge" value=""  name="spec" />
             </div>
         </div>
         <div class="clearfix">
@@ -117,7 +119,7 @@
         <div class="clearfix">
             <label for="xlInput">联系电话</label>
             <div class="input">
-                <input type="text" class="xlarge" value=""  name="title" />
+                <input type="text" class="xlarge" value=""  name="link_phone" />
             </div>
         </div>
         
@@ -132,7 +134,7 @@
   
     
         <div class="actions">
-            <input type="submit" class="btn success"  value="发布"" />
+            <a class="btn success" href="#" id="post_info">发布</>
             <a href="/sell" class="btn">暂不发布</a> 
         </div> 
     </fieldset>                   		
@@ -144,17 +146,24 @@
 </%block>
 <%block name='js'>
 <script src="/static/js/kindeditor-min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="/static/js/jquery-ui-1.8.17.custom.min.js"></script>
 <script src="/static/js/zh_CN.js"></script>
-<script src="/static/js/date_time.js"></script>
+<script src="/static/js/zh.js"></script>
 <script>
+     $('#start_time,#end_time').datepicker()
      var editor;
         KindEditor.ready(function(K) {
                 editor = K.create('#editor_id');
         });
-        $('#start_time').click(function(){
-            setDay(this);
-        });
-		</script>
+    $("#post_info").click(function(){
+        if($('#title').val() === ""){
+            alert('标题不能为空!');
+            return;
+        }
+        $('#post_form').submit();
+    });
+</script>
         
 </%block>
 
