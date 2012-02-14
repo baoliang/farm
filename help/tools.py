@@ -12,7 +12,7 @@ def set_user_session(session, user):
 
 def set_page_session(request_url, pages):  
         return {
-                    'url': request.url,
+                    'url': request_url,
                     'boot_time': pages.get('boot_time'),
                  
                     'page':   pages.get('page'),

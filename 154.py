@@ -4,9 +4,7 @@ import settings_run
 from flask import Flask
 from flaskext.mako import init_mako
 from views.views import app
-from views.sell_view import sell
 from views.account_view import account
-from views.news_view import news
 
 web = Flask(__name__)
 
@@ -18,4 +16,4 @@ web.config.from_object('settings_run')
 init_mako(web)
 
 if __name__ ==  '__main__':
-    web.run('192.168.1.254',5000)
+    web.run('192.168.1.254',8000)

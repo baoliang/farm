@@ -106,7 +106,7 @@ def index():
         session.get('page', None),
         get_query(request.values, session.get('boot_time', now())),
         session.get('sid'),
-        'sell'
+        'news'
     )
     return render_template(
         'index.html',
@@ -142,7 +142,7 @@ def sell_index():
         pages = pages,
         provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
         city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1),
-        search_value=search_value
+        search_value=request.args.get('title','')
     )     
     
 @app.route('/sell/send_sell')
@@ -152,3 +152,13 @@ def send_sell():
     '''
 
     return render_template('sell/send_sell.html')
+    
+@app.route('/news/detail')
+def news_detail():
+    '''
+    @todo:index page:
+    '''
+    return render_template(
+        'sell/seell_detail.html',
+        news=get_one_info('news', {'_id': request.args.get('_id')})
+    )        
