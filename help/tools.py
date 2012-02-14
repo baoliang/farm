@@ -33,7 +33,10 @@ def get_query(query_values, boot_time = None):
     return query
     
 def get_query_page(session_page, query, sid, collection):
+    print  query.get('page', 1)  >= query.get('old_page', 1)
     if not session_page or query.get('page', 1) == 1 or query.get('page', 1)  >=   query.get('old_page', 1):
+        print 'not in catch'
+        
         pages = get_info_list(
             collection, 
             query=query

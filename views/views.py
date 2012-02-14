@@ -96,7 +96,6 @@ def detail_sell():
     )   
     
 
-
 @app.route('/')
 def index():
     '''
@@ -108,6 +107,7 @@ def index():
         session.get('sid'),
         'news'
     )
+    session.update(set_page_session(request.url, pages))
     return render_template(
         'index.html',
         pages=pages,

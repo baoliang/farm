@@ -36,7 +36,6 @@ def get_page(
     
     data = list(collection_data)
     print query
-    print data 
     length = len(data)
     if length > 0:
         boot_time = data[length-1].get('create_time')
