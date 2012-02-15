@@ -3,8 +3,8 @@
         var option = "";
         $.get("/get_city?_id="+_id, function(data){
                 var option = "";
-                $.each(eval(data.city_list), function(index, item){
-                    console.log(item);
+                $.each(data.city_list, function(index, item){
+                    
                     option += "<option value='"+item._id+"'>"+item.city_name+"</option>"
                 });
                 $('#'+html_id).html(option);

@@ -59,5 +59,6 @@ def get_city_by_id(_id):
         return_type = "list",
         sort=1
     )
+    print city_list
     return city_list
     

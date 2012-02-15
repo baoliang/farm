@@ -2,7 +2,6 @@
 from flask import Blueprint 
 import os
 import simplejson
-from service.city import get_city_by_id
 from service.info import get_info_list
 from service.info import get_one_info
 from service.info import del_info
@@ -16,6 +15,7 @@ from help.tools import set_page_session
 from help.tools import get_query_page
 from help.tools import get_query
 from help.tools import get_query
+from help.tools import get_city_by_id
 import random
 from flask import  session, request, make_response, redirect, jsonify as return_json
 app = Blueprint('views', __name__)
@@ -153,12 +153,4 @@ def send_sell():
 
     return render_template('sell/send_sell.html')
     
-@app.route('/news/detail')
-def news_detail():
-    '''
-    @todo:index page:
-    '''
-    return render_template(
-        'sell/seell_detail.html',
-        news=get_one_info('news', {'_id': request.args.get('_id')})
-    )        
+      
