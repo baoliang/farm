@@ -13,6 +13,12 @@
     $("#province").change(function(){
         $('#city,#area').html("");
         farm.get_city($("#province").val(), 'city');
+        
+        if (!(this.value in ["1", "2", "9", "22"])){
+
+	    
+            farm.get_city($("#city").val(), 'area'); 
+        }
     });
     $("#city").change(function(){
         $('#area').html("");

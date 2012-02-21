@@ -6,20 +6,24 @@
 <div class="page-header">
 	<div>
 		<span>
-			地点:
+			地点:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 			    <select class="loc_select" name="province_id" id="province" defvalue="11">
+			<option value="">不限</option>
                      % for provice in provice_list:
                         <option value="${provice.get('_id', '')}">${provice.get('city_name', '')}</option>
                      % endfor
                 </select>
                 
                 <select class="loc_select" name="city_id" id="city" >
+
+		  <option value="">不限</option>
                     % for city in city_list:
                         <option value="${city.get('_id', '')}">${city.get('city_name', '')}</option>
                     % endfor    
                 </select>
              <select id="area" class="loc_select" name="area_id">
-                 <option value=""></option>
+
+			<option value="">不限</option>
             </select>
 		</span>
 		<span></span>
@@ -27,28 +31,54 @@
 	<div class="margin_top_5px">
 		<span>
 			类型:
-            
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type" checked=true  value=""  name="type" />全部
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"  value="农业"  name="type" />农业
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"  value="牧业"  name="type" />牧业
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"  value="渔业"  name="type" />渔业
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"  value="林业"  name="type" />林业
 		</span>
 
 	</div>
-  
+    <div class="margin_top_5px">
+		<span>
+          	时间:
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="text" class="med" value="" id="start_time"  />
+                --
+            <input type="text" class="med" value="" id="end_time"   />
+        </span>
+	</div>
+    <div class="margin_top_5px">
+		<span>
+          	价格:
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="text" class="med" value="" id="start_price"  />
+                --
+            <input type="text" class="med" value="" id="end_price"   />
+        </span>
+	</div>
 
+    <div class="margin_top_5px">
+          <span>
+              关键词:&nbsp&nbsp&nbsp&nbsp
+                
+              <input class="medium" id="search_value" size="16" type="text" />
+              <button class="btn success" id="search_button">搜索</button> 
+          </span>
+          <span>
+            %if session.get('_id', None):
+                <a id="send_sell" href="/sell/send_sell" class="btn danger">发布供应信息</a>
+            %endif
+          </span>
+      
+    </div>
+</div>
 
-</div>
-<div class="margin_top_5px">
-      <span>
-          关键词:
-            
-          <input class="medium" id="search_value" size="16" type="text" />
-          <button class="btn success" id="search_button">搜索</button> 
-      </span>
-      <span>
-        %if session.get('_id', None):
-            <a id="send_sell" href="/sell/send_sell" class="btn danger">发布供应信息</a>
-        %endif
-      </span>
-  
-</div>
 <table>
 	<thead>
            <!-- 表字段 -->

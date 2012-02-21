@@ -1,5 +1,6 @@
 from lib.utils import form2dic
 from service.info import get_info_list
+from service.info import get_one_info
 from lib.cach import get_cach
 from lib.cach import set_cach
 def set_user_session(session, user):
@@ -33,10 +34,8 @@ def get_query(query_values, boot_time = None):
     return query
     
 def get_query_page(session_page, query, sid, collection):
-    print  query.get('page', 1)  >= query.get('old_page', 1)
-    if not session_page or query.get('page', 1) == 1 or query.get('page', 1)  >=   query.get('old_page', 1):
-        print 'not in catch'
-        
+    page = query.get('page', 1)
+    if not session_page or page == 1 or page > query.get('old_page', 1):
         pages = get_info_list(
             collection, 
             query=query
