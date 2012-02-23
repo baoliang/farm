@@ -16,12 +16,12 @@
             content: $("#search_value").val(),
             start_time: $("#start_time").val(),
             end_time: $("#end_time").val(),
-	    start_price: $("#start_price").val(),
-	    end_price: $("#end_price").val(),
+            start_price: $("#start_price").val(),
+            end_price: $("#end_price").val(),
             type: $("input:radio[name='type']:checked").val(),
-            province: $("#province").val(),
-  	    city: $("#city").val(),
-	    area: $("#area").val()
+            province: $("#province").find("option:selected").text(),
+            city: $("#city").find("option:selected").text(),
+            area: $("#area").find("option:selected").text()
         }
     });
 }).call(this)

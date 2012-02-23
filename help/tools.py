@@ -46,7 +46,7 @@ def get_query_page(session_page, query, sid, collection):
     return pages
     
 def get_city_by_id(_id):
-    if _id in ["1", "2", "9"]:
+    if _id in ["1", "2", "9", "22"]:
         _id  = get_one_info(
                 'city',
                 query={"f_id": _id}
@@ -58,6 +58,5 @@ def get_city_by_id(_id):
         return_type = "list",
         sort=1
     )
-    print city_list
     return city_list
     

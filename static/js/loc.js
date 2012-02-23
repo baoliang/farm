@@ -17,7 +17,7 @@
         if (!(this.value in ["1", "2", "9", "22"])){
 
 	    
-            farm.get_city($("#city").val(), 'area'); 
+            setTimeout("farm.get_city($('#city').val(), 'area')", 3000); 
         }
     });
     $("#city").change(function(){
