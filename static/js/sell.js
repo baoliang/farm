@@ -1,4 +1,5 @@
 (function(){
+    $('#start_time,#end_time').datepicker();
     var old_page = $('#old_page').val(),
         last_time = $('#last_time').val();
     farm.page_go({old_page: old_page, query: "{}", return_url: "/"});
