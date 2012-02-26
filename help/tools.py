@@ -21,16 +21,57 @@ def set_page_session(request_url, pages):
     
 def get_query(query_values, boot_time = None):
     query = form2dic(query_values)
+    search_value = query.get('search_value', "")
+    query_loc = []
     if boot_time:
         query.update({'boot_time': boot_time})
-    content = query.get('content', None)
-    title = query.get('title', None)
-    search_value = ""
-    if content or content == "":
-       search_value = content
-       query.update({"content":{"$regex": content}})
-    if title or title == "":
-        query.update({"title":{"$regex": title}})
+    if query.has_key("search_value"):
+        query.pop("search_value")
+    if search_value != "":
+        query.update({
+            "$or" :[
+                {"content":{"$regex": search_value}},
+                {"title":{"$regex": search_value}},
+            ]
+        })
+    province = query.get("province", "")
+    if province != "":
+        query_loc.append(province)
+    if query.has_key("province"): query.pop("province")
+  
+    city = query.get("city", "")    
+    if city != "":
+        query_loc.append(city)
+    if query.has_key("city"): query.pop("city")
+    area = query.get("area", "")    
+    if  area != "":
+        query_loc.append(area)
+    if query.has_key("area"): query.pop("area")
+    
+    if query_loc:     
+        query.update({
+            "from_loc": {"$regex": " ".join(query_loc)}
+        })
+    if query.has_key("type"): 
+        if query.get("type") == "": query.pop("type")
+    start_price  = query.get("start_price", "")
+    if start_price != "":
+        try:
+            start_price = int(start_price)
+        except:
+            start_price = 0
+        query.update({"price": {"$gte": start_price}})
+    if query.has_key("start_price"): query.pop("start_price") 
+
+    end_price  = query.get("end_price", "")
+    if start_price != "":
+        try:
+            end_price = int(end_price)
+            query.update({"price": {"$lte": end_price}})
+        except:
+            pass
+        
+    if query.has_key("end_price"): query.pop("end_price")     
     return query
     
 def get_query_page(session_page, query, sid, collection):

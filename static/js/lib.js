@@ -12,20 +12,29 @@ farm.page_go = function(params){
         if ((parseInt(old_page)-1) === 1){
             location.href = params["return_url"];
         }else{
+        
            location.href="/?old_page="+old_page+"&page="+(parseInt(old_page)-1)+"";  
         }
     });
 }
 
 farm.search = function(params){
-     $('#search_button').click(function(){
-        
         var query = "";
         $.each(params['query'], function(index, value){
-            query +=  index + "=" +$("#search_value").val() +"&"
+            
+            if ( value === "不限"){
+                value = "";
+            }
+            query +=  index + "=" +value+ "&"
         });
-        location.href=encodeURI(params['url'] + "?" + query)
-    });
+        
+        $.ajax({
+            "url": params['url'] + "?" + query +"ajax=true",
+            "type": "POST",
+            "success": function(data){
+                $("#list").html(data);
+            }
+        })
 }
 function alert(content){
 	$("#alert_content").html("<strong>提示!&nbsp</strong>"+content);

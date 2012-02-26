@@ -10,12 +10,14 @@
     $('#first_page').live('click', function(){
         location.href="/";  
     });
-    farm.search({
+
+    $('#search_button').click(function(){
+        farm.search({
         url:"/",
         query: {
-            title: $("#search_value").val(),
-            content: $("#search_value").val()
+            search_value: $("#search_value").val()  
         }
+        });
     });
 }).call(this);
 

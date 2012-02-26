@@ -42,8 +42,7 @@ def render_to():
 def create_info_action():
     _id = session.get('_id', None)
     if _id: 
-        if request.form:
-            print request.form
+        if request.form:     
             create_info(request.form['collection'], form2dic(request.form), _id)
             return redirect(request.form['return'])
         else:
@@ -128,7 +127,7 @@ def news_detail():
         news=get_one_info('news', {'_id': request.args.get('_id')})
     )    
          
-@app.route('/sell')
+@app.route('/sell', methods=['GET', 'POST'])
 def sell_index():
     pages = get_query_page(
         session.get('page', None),
@@ -136,13 +135,16 @@ def sell_index():
         session.get('sid'),
         'sell'
     )
+    ajax = request.values.get("ajax", False)
     session.update(set_page_session(request.url, pages))
     return render_template(
         'sell/index.html',
         pages = pages,
         provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
         city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1),
-        search_value=request.args.get('title','')
+        search_value=request.args.get('title',''),
+        ajax = ajax
+        
     )     
     
 @app.route('/sell/send_sell')
