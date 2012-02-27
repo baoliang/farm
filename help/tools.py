@@ -55,21 +55,25 @@ def get_query(query_values, boot_time = None):
     if query.has_key("type"): 
         if query.get("type") == "": query.pop("type")
     start_price  = query.get("start_price", "")
+    query_price = []
     if start_price != "":
         try:
-            start_price = int(start_price)
-        except:
-            start_price = 0
-        query.update({"price": {"$gte": start_price}})
-    if query.has_key("start_price"): query.pop("start_price") 
-
-    end_price  = query.get("end_price", "")
-    if start_price != "":
-        try:
-            end_price = int(end_price)
-            query.update({"price": {"$lte": end_price}})
+            start_price = start_price
+            query_price.append({"price": {"$gte": start_price}})
         except:
             pass
+        
+    if query.has_key("start_price"): query.pop("start_price") 
+    if query.has_key("ajax"): query.pop("ajax") 
+    end_price  = query.get("end_price", "")
+    if end_price != "":
+        try:
+            end_price = end_price
+            query_price.append({"price": {"$lte": end_price}})
+        except:
+            pass
+    if query_price:
+        query.update({"$and": query_price})
         
     if query.has_key("end_price"): query.pop("end_price")     
     return query

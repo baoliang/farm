@@ -137,7 +137,8 @@ def sell_index():
     )
     return_html = "sell/index.html"
     if request.values.get("ajax", None): 
-        return_thml = "sell/list.html"
+        return_html = "sell/list.html"
+
     session.update(set_page_session(request.url, pages))
     return render_template(
         return_html,

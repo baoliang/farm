@@ -29,6 +29,8 @@ def remove(collection, query={}, real=False):
 def find(collection, query={}, limit=0, sort=-1, return_type="list"):
     query.update({'st_code': settings_run.ST_CODE['norm']})
     result = db[collection].find(query).sort('create_time', sort).limit(limit)
+    if settings_run.DEBUG:
+        print query
     if return_type == "cusor":
         return result
     else:
