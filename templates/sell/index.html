@@ -1,128 +1,96 @@
-%if not  ajax:
-<%inherit file='base.html' />
-<%block name="list">
-<table>
-	<thead>
-           <!-- 表字段 -->
-      <tr>
-       	  
-              <th width=100>
-            	      发布人
-              </th>
-              <th>
-              		标题
-              </th>
-              <th>
-              	发布时间	
-              </th>
-    
-              <!--表字段-->
-		</tr>
-	</thead>
-	<tbody>
-	
-       <!--表数据-->
-      
-          % for sell in pages.get('data', []):
-            <tr>
-                   <td>
-                        ${sell.get('auther', '')}
-                   </td>
-                   <td>
-                        <a href="/sell/detail?_id=${sell.get('_id',None)}">${sell.get('title', '')}</a>
-                   </td>
 
-                   <td>
-                        ${str(sell.get('create_time', '')).split('.')[0]}
-                   </td>
-            </tr>          
-          % endfor
-         
-		
-	</tbody>
-           
-</table>
- <div>
-   
-	<div class="float_left">
-	共${pages['count']}条
-	
-    </div>
-	<div class="float_right">
-
-      <a href="javascript:void(0)" id="first_page">首页</a>
-    %if pages['page'] !=1:
-	<a href="javascript:void(0)" id="pre_page"> 上一页</a>
-	%endif
-    %if pages['count']/pages['limit'] >= 1:
-	<a href="javascript:void(0)" id="next_page"> 下一页 </a>
-	%endif
-    <input type="hidden" id="old_page" value="${pages['page']}"  />
-
-   </div>	
-</div>
-
+<%inherit file='../base.html' />
+<%block name='css'>
 </%block>
-%endif
-%else:
-<table>
-	<thead>
-           <!-- 表字段 -->
-      <tr>
-       	  
-              <th width=100>
-            	      发布人
-              </th>
-              <th>
-              		标题
-              </th>
-              <th>
-              	发布时间	
-              </th>
-    
-              <!--表字段-->
-		</tr>
-	</thead>
-	<tbody>
-	
-       <!--表数据-->
+<%block name='content'>
+
+<div class="page-header">
+	<div>
+		<span>
+			地点:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			    <select class="loc_select" name="province_id" id="province" defvalue="11">
+			<option value="">不限</option>
+                     % for provice in provice_list:
+                        <option value="${provice.get('_id', '')}">${provice.get('city_name', '')}</option>
+                     % endfor
+                </select>
+                
+                <select class="loc_select" name="city_id" id="city" >
+
+		  <option value="">不限</option>
+                    % for city in city_list:
+                        <option value="${city.get('_id', '')}">${city.get('city_name', '')}</option>
+                    % endfor    
+                </select>
+             <select id="area" class="loc_select" name="area_id">
+
+			<option value="">不限</option>
+            </select>
+		</span>
+		<span></span>
+	</div>
+	<div class="margin_top_5px">
+		<span>
+			类型:
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type" checked=true  value=""  name="type" />不限
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"   value="农业"  name="type" />农业
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"  value="牧业"  name="type" />牧业
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"  value="渔业"  name="type" />渔业
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"  value="林业"  name="type" />林业
+		</span>
+
+	</div>
+    <div class="margin_top_5px">
+		<span>
+          	供应类型:
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="type"  value="" checked=true name="pay_type" />不限
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="type"  value="长期"  name="pay_type" />长期
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="type"  value="短期"  name="pay_type" />短期
+        </span>
+	</div>
+    <div class="margin_top_5px">
+		<span>
+          	价格:
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="text" class="med" value="" id="start_price"  />
+                --
+            <input type="text" class="med" value="" id="end_price"   />
+        </span>
+	</div>
+
+    <div class="margin_top_5px">
+          <span>
+              关键词:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                
+              <input class="medium" id="search_value" size="16" type="text" />
+              <button class="btn success" id="search_button">搜索</button> 
+          </span>
+          <span>
+            %if session.get('_id', None):
+                <a id="send_sell" href="/sell/send_sell" class="btn danger">发布供应信息</a>
+            %endif
+          </span>
       
-          % for sell in pages.get('data', []):
-            <tr>
-                   <td>
-                        ${sell.get('auther', '')}
-                   </td>
-                   <td>
-                        <a href="/sell/detail?_id=${sell.get('_id',None)}">${sell.get('title', '')}</a>
-                   </td>
-
-                   <td>
-                        ${str(sell.get('create_time', '')).split('.')[0]}
-                   </td>
-            </tr>          
-          % endfor
-         
-		
-	</tbody>
-           
-</table>
- <div>
-   
-	<div class="float_left">
-	共${pages['count']}条
-	
     </div>
-	<div class="float_right">
-
-      <a href="javascript:void(0)" id="first_page">首页</a>
-    %if pages['page'] !=1:
-	<a href="javascript:void(0)" id="pre_page"> 上一页</a>
-	%endif
-    %if pages['count']/pages['limit'] >= 1:
-	<a href="javascript:void(0)" id="next_page"> 下一页 </a>
-	%endif
-    <input type="hidden" id="old_page" value="${pages['page']}"  />
-
-   </div>	
 </div>
-%endelse
+<div id="list">
+    <%include file='list.html' /> 
+</div>
+</%block>
+<%block name='js'>
+<script src="/static/js/loc.js"></script>
+<script type="text/javascript" src="/static/js/jquery-1.7.1.min.js"></script>
+
+<script src="/static/js/sell.js"></script>
+</%block>
+
+
+

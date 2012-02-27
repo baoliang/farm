@@ -135,15 +135,16 @@ def sell_index():
         session.get('sid'),
         'sell'
     )
-    ajax = request.values.get("ajax", False)
+    return_html = "sell/index.html"
+    if request.values.get("ajax", None): 
+        return_thml = "sell/list.html"
     session.update(set_page_session(request.url, pages))
     return render_template(
-        'sell/index.html',
+        return_html,
         pages = pages,
         provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
         city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1),
-        search_value=request.args.get('title',''),
-        ajax = ajax
+        search_value=request.args.get('title','')
         
     )     
     
