@@ -47,7 +47,7 @@
 	</div>
     <div class="margin_top_5px">
 		<span>
-          	供应类型:
+          	求购类型:
             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
             <input type="radio" class="type"  value="" checked=true name="pay_type" />不限
             &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -87,7 +87,7 @@
           </span>
           <span>
             %if session.get('_id', None):
-                <a id="send_sell" href="/sell/send_sell" class="btn danger">发布供应信息</a>
+                <a id="send_buy" href="/buy/send_buy" class="btn danger">发布求购信息</a>
             %else:
 想发信息吗？快来<a id="reg" href="/login_user" >登陆</a>或者
 <a id="reg" href="/reg" >注册吧!</a>
@@ -102,10 +102,10 @@
 </%block>
 <%block name='js'>
 <script src="/static/js/loc.js"></script>
-
-<script src="/static/js/sell.js"></script>
-
-<script>$("#menu_sell").addClass("active")</script>
+<script src="/static/js/buy.js"></script>
+<script>
+    $("#menu_buy").addClass("active");
+</script>
 </%block>
 
 

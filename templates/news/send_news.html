@@ -43,18 +43,19 @@
 <script src="/static/js/kindeditor-min.js"></script>
 <script src="/static/js/zh_CN.js"></script>
 <script>
-     var editor;
-        KindEditor.ready(function(K) {
-                editor = K.create('#editor_id');
-        });
-        $("#post_info").click(function(){
-        if($('#title').val() === ""){
-            alert('标题不能为空!');
-            return;
-        }
-        $('#editor_id').val(editor.html());
-        $('#post_form').submit();
+    $("#menu_news").addClass("active");
+    var editor;
+    KindEditor.ready(function(K) {
+            editor = K.create('#editor_id');
     });
+    $("#post_info").click(function(){
+    if($('#title').val() === ""){
+        alert('标题不能为空!');
+        return;
+    }
+    $('#editor_id').val(editor.html());
+    $('#post_form').submit();
+});
 </script>
 </%block>
 

@@ -6,7 +6,7 @@
 
 
 <form action="/login" method="post">
-
+    <input type="hidden" value="login.html" name="return" />
 
 	<div class="cb win900">
 
@@ -60,19 +60,6 @@
 
 						</tr>
 
-						<tr>
-
-							<th>&nbsp;</th>
-
-							<td style="padding: 0pt;">
-
-								<input type="checkbox" style="vertical-align: middle;" id="coks" value="on" name="remember" />
-
-								<label class="logintip" for="coks">30天内自动登录 (公共场所慎用)</label>
-
-							</td>
-
-						</tr>
 
 						<tr>
 
@@ -80,13 +67,12 @@
 
 							<td style="padding:0;">
 
-								<span class="butt" style="line-height:34px;">
+								<span  style="line-height:34px;">
 
-								<input type="submit" name="btnSubmit" value="登录" class="btns" accesskey="l" id="btnSubmit" />
+								<input type="submit" value="登录" class="btn" />
 
-								</span><span class="reg-a"><a href="/reg">免费注册</a>|<a href="/forgetpassword">找回密码</a> </span>
-
-							</td>
+              </span><input type="button" name="btnSubmit" value="注册" class="btn success" accesskey="l" id="" /><span class="color_red">${info}</span>
+         </td>
 
 						</tr>
 

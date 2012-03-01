@@ -30,12 +30,22 @@ def login():
     if user:
         session.update(set_user_session({}, user))
         session.permanent = True
-        return redirect('/')
+        return redirect(request.url)
     else:
         session['err_msg'] = u"帐号密码错误"
-        return redirect('/')
+        if request.form.get("return", None):
+            return render_template('login.html',login="login",  info=u"帐号密码错误")
+        else:
+            return redirect('/')
 	
-
+@account.route('/login_user', methods=['GET','POST'])
+def login_user():
+    '''
+    @todo:登录
+    '''
+    return render_template('login.html', login="login", info="")
+            
+            
 @account.route('/reg_user', methods=['POST', 'GET'])
 def reg_user_by_form():
     '''

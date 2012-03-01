@@ -34,8 +34,8 @@ def get_city():
 
 @app.route('/render_to')
 def render_to():
-        return render_template(request.args.get('html'),
-            info=eval(request.args.get('info')),
+     return render_template(request.args.get('html'),
+            info=eval(request.args.get('info', '{}')),
         )
 
 @app.route('/create_info', methods=['GET', 'POST']) 
@@ -94,7 +94,14 @@ def detail_sell():
       
     )   
     
-
+@app.route('/buy/detail')
+def detail_sell():
+    return render_template(
+        'buy/detail_buy.html',
+        info=get_one_info('buy', {'_id': request.args.get('_id')})
+      
+    )
+    
 @app.route('/', methods=['GET', 'POST'])
 def index():
     '''
@@ -152,6 +159,28 @@ def sell_index():
         
     )     
     
+@app.route('/buy', methods=['GET', 'POST'])
+def buy_index():
+    pages = get_query_page(
+        session.get('page', None),
+        get_query(request.values, session.get('boot_time', now())),
+        session.get('sid'),
+        'buy'
+    )
+    return_html = "buy/index.html"
+    if request.values.get("ajax", None): 
+        return_html = "buy/list.html"
+
+    session.update(set_page_session(request.url, pages))
+    return render_template(
+        return_html,
+        pages = pages,
+        provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
+        city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1),
+        search_value=request.args.get('title','')
+        
+    )     
+    
 @app.route('/sell/send_sell')
 def send_sell():
     '''
@@ -160,4 +189,11 @@ def send_sell():
 
     return render_template('sell/send_sell.html')
     
-      
+@app.route('/buy/send_buy')
+def send_sell():
+    '''
+    @todo:index page:
+    '''
+
+    return render_template('buy/send_buy.html')
+          

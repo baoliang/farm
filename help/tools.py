@@ -76,6 +76,18 @@ def get_query(query_values, boot_time = None):
         query.update({"$and": query_price})
         
     if query.has_key("end_price"): query.pop("end_price")     
+    pay_type = query.get("pay_type", "")
+    if pay_type:
+        query.update({"pay_type":pay_type})
+    else:
+        if query.has_key("pay_type"): query.pop("pay_type")     
+    money_type = query.get("money_type", "")
+    if money_type:
+        query.update({"money_type": money_type})
+    
+    else:
+        if query.has_key("money_type"): query.pop("money_type")     
+ 
     return query
     
 def get_query_page(session_page, query, sid, collection):

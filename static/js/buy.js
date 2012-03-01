@@ -1,14 +1,14 @@
 (function(){
-    farm.page_go({old_page: old_page, query: "{}", return_url: "/sell"});
+    farm.page_go({old_page: old_page, query: "{}", return_url: "/buy"});
    
 
     $('#first_page').live('click', function(){
-        location.href="/sell";  
+        location.href="/buy";  
     });
     
     $('#search_button').click(function(){
         farm.search({
-        url:"/sell",
+        url:"/buy",
         query: {
             search_value: $("#search_value").val(),
             start_price: $("#start_price").val(),

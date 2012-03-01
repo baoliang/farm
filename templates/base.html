@@ -17,7 +17,7 @@
       <ul class="nav">
         <li id="menu_news"><a href="/">资讯专栏</a></li>
         <li id="menu_sell"><a href="/sell">供应信息</a></li>
-        <li><a href="/buy">求购信息</a></li>
+        <li id="menu_buy"><a href="/buy">求购信息</a></li>
         <li><a href="/teach">技术推广</a></li>
         <li><a href="#contact">招商加盟</a></li>
         <li><a href="#about">合作经营</a></li>
@@ -26,15 +26,20 @@
       </ul>
         <form action="/login" class="login" method="POST">
             % if  session.get('_id', {}):
+               
+                
                 <span class="color_red welcome">欢迎 ${session.get('name', None)}</span>
                 <a href="/quit" class="btn danger">退出帐号</a>
                 <a href="/setting" class="btn">帐号设置</a>
+                
             % else:
+                %if not login:                
                 <input class="input-small" type="text" name="_id" placeholder="用户名">
                 <input class="input-small" type="password" name="password" placeholder="密码">
                 <button class="btn" type="submit">登录</button>
                 <a href="/reg" class="btn danger">注册</a>
                 <span class="color_red">${session.get('err_msg', '')}</span>
+               %endif
             % endif
         </form>
         
