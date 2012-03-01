@@ -17,6 +17,7 @@ from flaskext.mako import render_template
 from flask import  session, request, make_response, redirect, jsonify as return_json
 account = Blueprint('account_view', __name__)
 
+
 @account.route('/login', methods=['GET','POST'])
 def login():
     '''
@@ -28,6 +29,7 @@ def login():
     )
     if user:
         session.update(set_user_session({}, user))
+        session.permanent = True
         return redirect('/')
     else:
         session['err_msg'] = u"帐号密码错误"
@@ -74,8 +76,9 @@ def update_user_action():
     if _id:
         user = form2dic(request.form)
         user.pop('password')
-        update_user(_id, user)
-        session['name'] = user.get('name', None)
+        user = update_user(_id, user)
+        session.clear()
+        session.update(set_user_session({}, user))
         return redirect('/')  
     else:
         return redirect('/')       

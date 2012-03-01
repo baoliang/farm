@@ -35,16 +35,10 @@
                 </select>
                 
                 <select class="loc_select" name="city_id" id="city" >
-                    % for city in city_list:
-                        % if  user.get('city_id', '') == city.get('_id', ''):
-                            <option value="${city.get('_id', '')}" selected=true>${city.get('city_name', '')}</option>
-                        % else:
-                            <option value="${city.get('_id', '')}">${city.get('city_name', '')}</option>
-                        %endif
-                    % endfor    
+                   <option value="${user.get('city_id', '')}">${user.get('city', '不限')}</option> 
                 </select>
              <select id="area" class="loc_select" name="area_id">
-                 <option value="${user.get('area_id', '')}">${user.get('area', '')}</option>
+                 <option value="${user.get('area_id', '')}">${user.get('area', '不限')}</option>
             </select>
             </div>
         </div>

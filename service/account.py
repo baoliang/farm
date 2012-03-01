@@ -31,7 +31,8 @@ def reg_user(user):
 
 def update_user(_id, info):
     info = update_loc(info) 
-    update('users', {'_id': _id}, info)    
+    update('users', {'_id': _id}, info)
+    return find_one("users", {"_id": _id})
     
 def update_loc(user):
         area_id = user.get('area_id', None)  
@@ -45,7 +46,7 @@ def update_loc(user):
                 'city': find_one("city", {"_id": user.get('city_id')}).get("city_name")
             }
         )
-        print area_id
+
         if area_id:
             user.update(
                 {

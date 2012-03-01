@@ -1,0 +1,62 @@
+<table>
+	<thead>
+           <!-- 表字段 -->
+      <tr>
+       	  
+              <th width=100>
+            	      发布人
+              </th>
+              <th>
+              		新闻标题
+              </th>
+              <th>
+              	发布时间	
+              </th>
+    
+              <!--表字段-->
+		</tr>
+	</thead>
+	<tbody>
+	
+       <!--表数据-->
+      
+          % for news in pages.get('data', []):
+            <tr>
+                   <td>
+                        ${news.get('auther', '')}
+                   </td>
+                   <td>
+                        <a href="/news/detail?_id=${news.get('_id',None)}">${news.get('title', '')}</a>
+                   </td>
+
+                   <td>
+                        ${str(news.get('create_time', '')).split('.')[0]}
+                   </td>
+            </tr>          
+          % endfor
+         
+		
+	</tbody>
+           
+</table>
+ <div>
+  
+	<div class="float_left">
+	共${pages['count']}条
+	
+    </div>
+	<div class="float_right">
+
+      <a href="javascript:void(0)" id="first_page">首页</a>
+    %if pages['page'] !=1:
+	<a href="javascript:void(0)" id="pre_page"> 上一页</a>
+	%endif
+    %if pages['count']/pages['limit'] >= 1:
+	<a href="javascript:void(0)" id="next_page"> 下一页 </a>
+	%endif
+    <input type="hidden" id="old_page" value="${pages['page']}"  />
+
+   </div>	
+		
+
+</div>

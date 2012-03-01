@@ -95,7 +95,7 @@ def detail_sell():
     )   
     
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def index():
     '''
     @todo:index page:
@@ -106,9 +106,12 @@ def index():
         session.get('sid'),
         'news'
     )
+    return_html = "index.html"
+    if request.values.get("ajax", None): 
+        return_html = "news/list.html"
     session.update(set_page_session(request.url, pages))
     return render_template(
-        'index.html',
+        return_html,
         pages=pages,
         search_value=request.args.get('title','')
     ) 
