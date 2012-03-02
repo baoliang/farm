@@ -1,0 +1,80 @@
+
+<%inherit file='../base.html' />
+<%block name='css'>
+</%block>
+<%block name='content'>
+
+<div class="page-header">
+	<div>
+		<span>
+			地点:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			    <select class="loc_select" name="province_id" id="province" defvalue="11">
+			<option value="">不限</option>
+                     % for provice in provice_list:
+                        <option value="${provice.get('_id', '')}">${provice.get('city_name', '')}</option>
+                     % endfor
+                </select>
+                
+                <select class="loc_select" name="city_id" id="city" >
+
+		  <option value="">不限</option>
+                    % for city in city_list:
+                        <option value="${city.get('_id', '')}">${city.get('city_name', '')}</option>
+                    % endfor    
+                </select>
+             <select id="area" class="loc_select" name="area_id">
+
+			<option value="">不限</option>
+            </select>
+		</span>
+		<span></span>
+	</div>
+	<div class="margin_top_5px">
+		<span>
+			类型:
+            &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type" checked=true  value=""  name="type" />不限
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"   value="农业"  name="type" />农业
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"  value="牧业"  name="type" />牧业
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"  value="渔业"  name="type" />渔业
+            &nbsp&nbsp&nbsp&nbsp
+            <input type="radio" class="radio_type"  value="林业"  name="type" />林业
+		</span>
+
+	</div>
+
+    <div class="margin_top_5px">
+          <span>
+              关键词:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                
+              <input class="medium" id="search_value" size="16" type="text" />
+              <button class="btn success" id="search_button">搜索</button> 
+          </span>
+          <span>
+            %if session.get('_id', None):
+                <a id="send_buy" href="/collaborate/send_collaborate" class="btn danger">发布合作经营信息</a>
+            %else:
+想发信息吗？快来<a id="reg" href="/login_user" >登陆</a>或者
+<a id="reg" href="/reg" >注册吧!</a>
+            %endif
+          </span>
+      
+    </div>
+</div>
+<div id="list">
+    <%include file='list.html' /> 
+</div>
+</%block>
+<%block name='js'>
+<script src="/static/js/loc.js"></script>
+<script src="/static/js/collaborate.js"></script>
+<script>
+    $("#menu_collaborate").addClass("active");
+</script>
+</%block>
+
+
+

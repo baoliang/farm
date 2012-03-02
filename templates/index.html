@@ -3,20 +3,21 @@
 
 <%block name='content'>
 
-
-<div class="margin_top_5px">
-      <span>
-          关键词:
-          
-          <input class="medium" id="search_value" name="" size="16" value="" type="text" />
-          <button class="btn success" id="search_button">搜索</button> 
-      </span>
-      <span>
-        %if session.get('_id', None) == 'admin':
-        <a id="send_news" href="/news/send_news" class="btn danger">发布新闻</a>
-        %endif
-      </span>
-  
+<div class="page-header">
+    <div class="margin_top_5px">
+          <span>
+              关键词:
+              
+              <input class="medium" id="search_value" name="" size="16" value="" type="text" />
+              <button class="btn success" id="search_button">搜索</button> 
+          </span>
+          <span>
+            %if session.get('_id', None) == 'admin':
+            <a id="send_news" href="/news/send_news" class="btn danger">发布新闻</a>
+            %endif
+          </span>
+      
+    </div>
 </div>
 <div id="list">
     <%include file='news/list.html' /> 

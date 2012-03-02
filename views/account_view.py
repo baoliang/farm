@@ -9,12 +9,14 @@ from service.info import get_info_list
 from service.info import get_one_info
 from service.info import del_info
 from service.info import create_info
+from service.file import save_file
+from service.file import get_file
 from dic import level_html, collection_html, args
 from lib.utils import form2dic
 from lib.utils import now, DatetimeJSONEncoder
 from help.tools import set_user_session
 from flaskext.mako import render_template
-from flask import  session, request, make_response, redirect, jsonify as return_json
+from flask import  session, request, make_response, redirect, jsonify as return_json, send_file
 account = Blueprint('account_view', __name__)
         
 @account.route('/login', methods=['GET','POST'])
@@ -101,3 +103,25 @@ def quit():
 def check_user():
     return return_json(success = check_only_user(request.args.get('_id', '')))
 
+@account.route('/upload_file', methods=['POST'])    
+def upload_file():
+    if request.values.get("dir", "") == "image":
+            
+        file = request.files['imgFile']
+        _id = save_file(
+            file.stream,
+            file.content_type,
+            file.filename
+        )
+        
+    return return_json({
+        "error" : 0,
+        "url" : "/file?_id=" + str(_id)
+    })  
+    
+@account.route('/file')    
+def getfile():
+    file = get_file(request.args.get("_id"))
+    response = make_response(file["content"])
+    response.headers["Content-type"] = "text/plain"
+    return response

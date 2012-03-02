@@ -1,4 +1,4 @@
-from lib.db import db_update, db
+from lib.db import db_update, db, get_gridfs
 import pymongo
 from pymongo.objectid import ObjectId
 import datetime
@@ -41,3 +41,17 @@ def find_one(collection, query={}):
         query.update({'_id': ObjectId(query.get('_id'))})
     return db[collection].find_one(query)
     
+def add_file(file, content_type, filename):
+    fs = get_gridfs()
+    res = fs.put(
+        file,
+        content_type=content_type,
+        filename=filename
+    )
+    return  res
+def get_file_by_id(_id):
+    fs = get_gridfs()
+    file = fs.get(ObjectId(_id))
+    
+    return  {"content":file.read()}
+   

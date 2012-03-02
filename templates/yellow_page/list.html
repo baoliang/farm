@@ -4,11 +4,14 @@
            <!-- 表字段 -->
       <tr>
        	  
-              <th width=100>
-            	      发布人
+              <th >
+            	      公司
               </th>
               <th>
-              		标题
+              	地址
+              </th>
+              <th>
+              	电话
               </th>
               <th>
               	发布时间	
@@ -23,11 +26,15 @@
       
           % for sell in pages.get('data', []):
             <tr>
+            
                    <td>
-                        ${sell.get('auther', '')}
+                        <a href="/teach/detail?_id=${sell.get('_id',None)}">${sell.get('title', '')}</a>
                    </td>
                    <td>
-                        <a href="/sell/detail?_id=${sell.get('_id',None)}">${sell.get('title', '')}</a>
+                        ${sell.get('from_loc', '')}
+                   </td>
+             <td>
+                        ${sell.get('link_phone', '')}
                    </td>
 
                    <td>

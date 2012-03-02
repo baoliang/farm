@@ -46,7 +46,10 @@
     $("#menu_news").addClass("active");
     var editor;
     KindEditor.ready(function(K) {
-            editor = K.create('#editor_id');
+            editor = K.create('#editor_id',{
+            	uploadJson : '/upload_file',
+            
+            });
     });
     $("#post_info").click(function(){
     if($('#title').val() === ""){

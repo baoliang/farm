@@ -85,7 +85,7 @@ def get_loc_by_ip():
     ip = request.remote_addr
     if ip == "127.0.0.1": 
         ip = request.headers["X-Real-IP"]
-    req = urllib2.Request("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=python&ip="+ip)
+    req = urllib2.Request("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=python&ip=" + ip)
     res = urllib2.urlopen( req )
     html = res.read()
     res.close()
@@ -100,7 +100,7 @@ def detail_sell():
     )   
     
 @app.route('/buy/detail')
-def detail_sell():
+def detail_buy():
     return render_template(
         'buy/detail_buy.html',
         info=get_one_info('buy', {'_id': request.args.get('_id')})
@@ -126,6 +126,46 @@ def teach_detail():
         'teach/teach_detail.html',
         info=get_one_info('teach', {'_id': request.args.get('_id')})
     )  
+    
+@app.route('/yellow_page/detail')
+def yellow_page_detail():
+    '''
+    @todo:index page:
+    '''
+    return render_template(
+        'yellow_page/yellow_page_detail.html',
+        info=get_one_info('yellow_page', {'_id': request.args.get('_id')})
+    )  
+
+@app.route('/invest/detail')
+def invest_detail():
+    '''
+    @todo:index page:
+    '''
+    return render_template(
+        'invest/invest_detail.html',
+        info=get_one_info('invest', {'_id': request.args.get('_id')})
+    )     
+    
+@app.route('/collaborate/detail')
+def collaborate_detail():
+    '''
+    @todo:index page:
+    '''
+    return render_template(
+        'collaborate/collaborate_detail.html',
+        info=get_one_info('collaborate', {'_id': request.args.get('_id')})
+    )        
+
+@app.route('/business/detail')
+def business_detail():
+    '''
+    @todo:index page:
+    '''
+    return render_template(
+        'business/business_detail.html',
+        info=get_one_info('business', {'_id': request.args.get('_id')})
+    ) 
     
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -217,6 +257,97 @@ def teach_index():
         
     )  
     
+@app.route('/business', methods=['GET', 'POST'])
+def business_index(): 
+    pages = get_query_page(
+        session.get('page', None),
+        get_query(request.values, session.get('boot_time', now())),
+        session.get('sid'),
+        'business'
+    )
+    return_html = "business/index.html"
+    if request.values.get("ajax", None): 
+        return_html = "business/list.html"
+ 
+    
+    session.update(set_page_session(request.url, pages))
+    return render_template(
+        return_html,
+        pages = pages,
+        provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
+        city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1),
+        search_value=request.args.get('title','')
+        
+    )  
+    
+@app.route('/collaborate', methods=['GET', 'POST'])
+def collaborate_index(): 
+    pages = get_query_page(
+        session.get('page', None),
+        get_query(request.values, session.get('boot_time', now())),
+        session.get('sid'),
+        'collaborate'
+    )
+    return_html = "collaborate/index.html"
+    if request.values.get("ajax", None): 
+        return_html = "collaborate/list.html"
+ 
+    
+    session.update(set_page_session(request.url, pages))
+    return render_template(
+        return_html,
+        pages = pages,
+        provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
+        city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1),
+        search_value=request.args.get('title','')
+        
+    )  
+    
+@app.route('/invest', methods=['GET', 'POST'])
+def invest_index(): 
+    pages = get_query_page(
+        session.get('page', None),
+        get_query(request.values, session.get('boot_time', now())),
+        session.get('sid'),
+        'invest'
+    )
+    return_html = "invest/index.html"
+    if request.values.get("ajax", None): 
+        return_html = "invest/list.html"
+ 
+    
+    session.update(set_page_session(request.url, pages))
+    return render_template(
+        return_html,
+        pages = pages,
+        provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
+        city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1),
+        search_value=request.args.get('title','')
+        
+    ) 
+    
+@app.route('/yellow_page', methods=['GET', 'POST'])
+def yellow_page_index(): 
+    pages = get_query_page(
+        session.get('page', None),
+        get_query(request.values, session.get('boot_time', now())),
+        session.get('sid'),
+        'yellow_page'
+    )
+    return_html = "yellow_page/index.html"
+    if request.values.get("ajax", None): 
+        return_html = "yellow_page/list.html"
+ 
+    
+    session.update(set_page_session(request.url, pages))
+    return render_template(
+        return_html,
+        pages = pages,
+        provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
+        city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1),
+        search_value=request.args.get('title','')
+        
+    )     
 @app.route('/sell/send_sell')
 def send_sell():
     '''
@@ -245,3 +376,33 @@ def send_teach():
     '''
 
     return render_template('teach/send_teach.html')
+    
+@app.route('/yellow_page/send_yellow_page')
+def send_yellow_page():
+    '''
+    @todo:index page:
+    '''
+    return render_template('yellow_page/send.html')    
+    
+@app.route('/invest/send_invest')
+def send_invest():
+    '''
+    @todo:index page:
+    '''
+    return render_template('invest/send.html')    
+    
+@app.route('/business/send_business')
+def send_business():
+    '''
+    @todo:index page:
+    '''
+    return render_template('business/send.html')     
+
+@app.route('/collaborate/send_collaborate')
+def send_collaborate():
+    '''
+    @todo:index page:
+    '''
+    return render_template('collaborate/send.html')  
+    
+    
