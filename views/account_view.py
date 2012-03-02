@@ -16,8 +16,7 @@ from help.tools import set_user_session
 from flaskext.mako import render_template
 from flask import  session, request, make_response, redirect, jsonify as return_json
 account = Blueprint('account_view', __name__)
-
-
+        
 @account.route('/login', methods=['GET','POST'])
 def login():
     '''
@@ -30,13 +29,13 @@ def login():
     if user:
         session.update(set_user_session({}, user))
         session.permanent = True
-        return redirect(request.url)
+        return redirect(request.headers.get("Referer", "/"))
     else:
         session['err_msg'] = u"帐号密码错误"
         if request.form.get("return", None):
             return render_template('login.html',login="login",  info=u"帐号密码错误")
         else:
-            return redirect('/')
+            return redirect(request.headers.get("Referer", "/"))
 	
 @account.route('/login_user', methods=['GET','POST'])
 def login_user():
@@ -96,7 +95,7 @@ def update_user_action():
 @account.route('/quit')
 def quit():
     session.clear()
-    return redirect('/')
+    return redirect(request.headers.get("Referer", "/"))
  
 @account.route('/check_user')    
 def check_user():

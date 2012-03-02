@@ -23,7 +23,12 @@ app = Blueprint('views', __name__)
 @app.before_request
 def before():
     if 'sid' not in session:
+
         session['sid'] = str(random.randint(10**10,10**20))
+        
+@app.teardown_request
+def teardown_request(exception):
+    session["path"] = request.path        
         
         
 @app.route('/get_city')    
@@ -101,6 +106,26 @@ def detail_sell():
         info=get_one_info('buy', {'_id': request.args.get('_id')})
       
     )
+
+@app.route('/news/detail')
+def news_detail():
+    '''
+    @todo:index page:
+    '''
+    return render_template(
+        'news/news_detail.html',
+        news=get_one_info('news', {'_id': request.args.get('_id')})
+    )    
+
+@app.route('/teach/detail')
+def teach_detail():
+    '''
+    @todo:index page:
+    '''
+    return render_template(
+        'teach/teach_detail.html',
+        info=get_one_info('teach', {'_id': request.args.get('_id')})
+    )  
     
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -123,20 +148,8 @@ def index():
         search_value=request.args.get('title','')
     ) 
 
-@app.route('/news/send_news')
-def send_news():
-    return render_template('news/send_news.html')
 
-@app.route('/news/detail')
-def news_detail():
-    '''
-    @todo:index page:
-    '''
-    return render_template(
-        'news/news_detail.html',
-        news=get_one_info('news', {'_id': request.args.get('_id')})
-    )    
-         
+    
 @app.route('/sell', methods=['GET', 'POST'])
 def sell_index():
     pages = get_query_page(
@@ -180,6 +193,29 @@ def buy_index():
         search_value=request.args.get('title','')
         
     )     
+
+@app.route('/teach', methods=['GET', 'POST'])
+def teach_index(): 
+    pages = get_query_page(
+        session.get('page', None),
+        get_query(request.values, session.get('boot_time', now())),
+        session.get('sid'),
+        'teach'
+    )
+    return_html = "teach/index.html"
+    if request.values.get("ajax", None): 
+        return_html = "teach/list.html"
+ 
+    
+    session.update(set_page_session(request.url, pages))
+    return render_template(
+        return_html,
+        pages = pages,
+        provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
+        city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1),
+        search_value=request.args.get('title','')
+        
+    )  
     
 @app.route('/sell/send_sell')
 def send_sell():
@@ -188,12 +224,24 @@ def send_sell():
     '''
 
     return render_template('sell/send_sell.html')
-    
+
+@app.route('/news/send_news')
+def send_news():
+    return render_template('news/send_news.html')
+
+             
 @app.route('/buy/send_buy')
-def send_sell():
+def send_buy():
     '''
     @todo:index page:
     '''
 
     return render_template('buy/send_buy.html')
           
+@app.route('/teach/send_teach')
+def send_teach():
+    '''
+    @todo:index page:
+    '''
+
+    return render_template('teach/send_teach.html')
