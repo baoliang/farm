@@ -1,4 +1,4 @@
-#coding: utf-8
+# _*_ coding: utf-8 _*_
 from service.account import vertify_user
 from service.account import check_only_user
 from service.account import reg_user
@@ -9,17 +9,14 @@ from service.info import get_info_list
 from service.info import del_info
 from service.info import update_info
 from lib.db import db, db_update
-from lib.store import insert, find, find_one
+from lib.store import insert, find, find_one, remove
 
 import unittest
 
 class Test_account(unittest.TestCase):    
     def setUp(self):
-        db_update.users.insert({
-            '_id': 'test',
-            'password': 'test', 
-            'city':u'北京市'
-        })
+        insert("users",
+            { "_id" : "test", "province" : "北京市", "city" : "东城区", "area_id" : "", "password" : "admin", "name" : "admin", "city_id" : "39", "st_code" : 0, "leval" : "1", "create_time" : "2012-03-07 16:55:17.360058", "province_id" : "1" })
 		 
     def tearDown(self):
         db_update.users.remove({'_id': 'test'}) 
@@ -28,7 +25,7 @@ class Test_account(unittest.TestCase):
 		 
     def test_vertify_user(self):
         self.assertEqual(vertify_user('', '' ), False)
-        self.assertTrue(bool(vertify_user('test', 'test')))
+        self.assertTrue(bool(vertify_user('test', 'admin')))
 		 
 		 
     def test_check_only_user(self):
@@ -37,8 +34,8 @@ class Test_account(unittest.TestCase):
 		
 		
     def test_reg_user(self):
-        reg_user({'_id':'test'})
-        self.assertTrue(bool(db.users.find_one({'_id':'test'})))
+        reg_user({'_id':'test_reg'})
+        self.assertTrue(bool(find_one('users', {'_id':'test_reg'})))
 
     def test_update_user(self):
         update_user('test', {'test':True})
@@ -56,16 +53,12 @@ class TestInfo(unittest.TestCase):
 
 
     def setUp(self):
-        db_update.users.insert({
-            '_id': 'test_del',
-            'password': 'test', 
-            'city':u'北京市'
-        })
         insert(
             'users',
-            {'_id':'test_update','city':'beijing'}
+            { "_id" : "test_update", "province" : "北京市", "city" : "东城区", "area_id" : "", "password" : "admin", "name" : "admin", "city_id" : "39", "st_code" : 0, "leval" : "1", "create_time" : "2012-03-07 16:55:17.360058", "province_id" : "1" }
         )
-
+    def tearDown(self):
+        remove('users', {'_id': 'test_update'}, real=True)
 
     def test_create_info(self):
         create_info('info_test', self.create_info_data, 'test')
@@ -80,7 +73,7 @@ class TestInfo(unittest.TestCase):
 
     def test_del_info(self):
         del_info('users', {'_id': 'test_del'}, real=True)
-        self.assertEqual(0, find('users',{'_id': 'test_del'}).count())
+        self.assertEqual(0, find('users',{'_id': 'test_del'}, return_type="cusor").count())
     
 
     def test_update_info(self):
@@ -89,8 +82,6 @@ class TestInfo(unittest.TestCase):
             'hongkong',
             find_one('users', {'_id': 'test_update'}).get('city', '')
         )
-def t():
-    print "err"
 
 if __name__ == '__main__':
     unittest.main()

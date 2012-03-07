@@ -21,7 +21,7 @@ def check_only_user(_id):
 
 def reg_user(user):
     try:
-        user = update_loc(user)     
+        user = update_loc(user.get("_id"))     
         insert('users', user)
         return user
     except:
@@ -30,11 +30,13 @@ def reg_user(user):
 
 
 def update_user(_id, info):
-    info = update_loc(info) 
+    info = update_loc(_id) 
     update('users', {'_id': _id}, info)
+   
     return find_one("users", {"_id": _id})
     
-def update_loc(user):
+def update_loc(_id):
+        user  = find_one("users", {"_id": _id})
         area_id = user.get('area_id', None)  
         user.update(
             {
@@ -53,4 +55,5 @@ def update_loc(user):
                     'area': find_one("city", {"_id": area_id}).get("city_name", '')
                 }
             )
+        user.pop("_id")
         return user

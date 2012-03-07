@@ -28,12 +28,12 @@ class Test_lib(unittest.TestCase):
         '''
         resault = get_page('test', {'page':1}, limit=10) 
         self.assertEqual(resault['count'], 1000)
-        self.assertEqual(resault['data'][9]['create_time'], resault['last_time'])
+        self.assertEqual(resault['data'][9]['create_time'], resault['boot_time'])
         self.assertEqual(len(resault['data']), 10)
         remove('test', real=True)
         resault = get_page('test', {'page':1}, limit=10) 
         self.assertEqual(resault['count'], 0)
-        self.assertEqual(None, resault['last_time'])
+        self.assertEqual('', resault['boot_time'])
 
         
 if __name__ == '__main__':

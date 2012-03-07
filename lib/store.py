@@ -18,7 +18,7 @@ def remove(collection, query={}, real=False):
         db_update[collection].update(
             query, 
             {
-                'set':
+                '$set':
                 {
                     'st_code': settings_run.ST_CODE['del']
                 }
