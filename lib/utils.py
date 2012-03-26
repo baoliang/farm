@@ -5,6 +5,8 @@ import datetime
 import traceback
 import decimal
 import simplejson
+from hashlib import sha256
+from hmac import HMAC
 
 def safe_new_datetime(d):
     kw = [d.year, d.month, d.day]
@@ -53,3 +55,22 @@ def form2dic(form):
     for i in form:
         temp_dic[i] = form[i]
     return temp_dic
+
+def encrypt_password(password, salt=None):
+    """Hash password on the fly."""
+    if salt is None:
+        salt = os.urandom(8) # 64 bits.
+    
+    assert 8 == len(salt)
+    assert isinstance(salt, str)
+    
+    if isinstance(password, unicode):
+        password = password.encode('UTF-8')
+    
+    assert isinstance(password, str)
+    
+    result = password
+    for i in xrange(10):
+        result = HMAC(result, salt, sha256).digest()
+    
+    return salt + result
