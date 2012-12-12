@@ -3229,7 +3229,7 @@ def insert_city():
     from lib.store import insert
     for i in range(len(city)):
         tmp_v = {
-            '_id': city[i][0],
+            'id': city[i][0],
             'f_id': city[i][1],
             'city_name': city[i][2],
             'phone_code': city[i][3],

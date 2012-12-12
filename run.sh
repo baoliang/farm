@@ -1,1 +1,1 @@
-corn --workers=4 --worker-class="egg:meinheld#gunicorn_worker" run:web &
+gunicorn --workers=2 --worker-class="egg:meinheld#gunicorn_worker" run:web &

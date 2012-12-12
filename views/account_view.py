@@ -11,7 +11,6 @@ from service.info import del_info
 from service.info import create_info
 from service.file import save_file
 from service.file import get_file
-from dic import level_html, collection_html, args
 from lib.utils import form2dic
 from lib.utils import now, DatetimeJSONEncoder
 from help.tools import set_user_session
@@ -25,7 +24,7 @@ def login():
     @todo:登录
     '''
     user =  vertify_user(
-        request.form.get('_id', ''),
+        request.form.get('id', ''),
         request.form.get('password', '')
     )
     if user:
@@ -70,10 +69,10 @@ def reg():
 
 @account.route('/setting')
 def settings():
-    if session.get('_id', None):
+    if session.get('id', None):
         return render_template(
             'setting.html',
-            user=get_one_info("users", {'_id': session.get('_id', None)}),
+            user=get_one_info("users", {'id': session.get('id', None)}),
             provice_list = get_info_list("city", query={'f_id': "0"}, return_type = "list", sort=1),
             city_list = get_info_list("city", query={'f_id': "35"}, return_type = "list", sort=1)
         )
@@ -83,7 +82,7 @@ def settings():
     
 @account.route('/update_user', methods=['POST', 'GET'])
 def update_user_action():
-    _id = session.get('_id', None)
+    _id = session.get('id', None)
     if _id:
         user = form2dic(request.form)
         user.pop('password')
@@ -101,7 +100,7 @@ def quit():
  
 @account.route('/check_user')    
 def check_user():
-    return return_json(success = check_only_user(request.args.get('_id', '')))
+    return return_json(success = check_only_user(request.args.get('id', '')))
 
 @account.route('/upload_file', methods=['POST'])    
 def upload_file():

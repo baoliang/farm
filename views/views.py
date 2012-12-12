@@ -6,7 +6,6 @@ from service.info import get_info_list
 from service.info import get_one_info
 from service.info import del_info
 from service.info import create_info
-from dic import level_html, collection_html, args
 from lib.utils import form2dic
 from lib.utils import now, DatetimeJSONEncoder
 from flaskext.mako import render_template
@@ -30,10 +29,13 @@ def before():
 def teardown_request(exception):
     session["path"] = request.path        
         
-        
+@app.route("/hello")
+def hello():
+    return "hello"
+
 @app.route('/get_city')    
 def get_city():
-    return return_json(city_list=get_city_by_id(request.args.get('_id')))
+    return return_json(city_list=get_city_by_id(request.args.get('id')))
 
     
 
@@ -91,7 +93,7 @@ def get_loc_by_ip():
     res.close()
     return html
     
-@app.route('/sell/detail')
+@app.route('/detail')
 def detail_sell():
     return render_template(
         'sell/detail_sell.html',
@@ -123,7 +125,7 @@ def index():
 
 
 @app.route('/send')
-def send_sell():
+def send():
     '''
     @todo:index page:
     '''

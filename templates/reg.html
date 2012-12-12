@@ -20,29 +20,9 @@
             </div>
         </div>
         <div class="clearfix">
-            <label for="xlInput">姓名或单位名称</label>
+            <label for="xlInput">姓名</label>
             <div class="input">
             <input type="text" class="xlarge" value=""  name="name" />
-            </div>
-        </div>
-        <div class="clearfix">
-            <label for="xlInput">位置</label>
-            <div class="input">
-           
-                <select class="loc_select" name="province_id" id="province" defvalue="11">
-                     % for provice in provice_list:
-                        <option value="${provice.get('_id', '')}">${provice.get('city_name', '')}</option>
-                     % endfor
-                </select>
-                
-                <select class="loc_select" name="city_id" id="city" >
-                    % for city in city_list:
-                        <option value="${city.get('_id', '')}">${city.get('city_name', '')}</option>
-                    % endfor    
-                </select>
-             <select id="area" class="loc_select" name="area_id">
-                 <option value=""></option>
-            </select>
             </div>
         </div>
         <div class="clearfix">
@@ -58,6 +38,26 @@
             </div>
         </div>
     
+        <div class="clearfix">
+            <label for="xlInput">位置</label>
+            <div class="input">
+           
+                <select class="loc_select" name="province_id" id="province" defvalue="11">
+                     % for provice in provice_list:
+                        <option value="${provice.get('id', '')}">${provice.get('city_name', '')}</option>
+                     % endfor
+                </select>
+                
+                <select class="loc_select" name="city_id" id="city" >
+                    % for city in city_list:
+                        <option value="${city.get('id', '')}">${city.get('city_name', '')}</option>
+                    % endfor    
+                </select>
+                <select id="area" class="loc_select" name="area_id">
+                   <option value=""></option>
+                </select>
+            </div>
+        </div>
         <div class="actions">
             <input type="button" class="btn success" id="reg_user_action" value="注册" />
             <input type="button" class="btn"  id="reg_user_cancel" value="暂时先不注册"> 

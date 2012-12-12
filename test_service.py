@@ -16,10 +16,10 @@ import unittest
 class Test_account(unittest.TestCase):    
     def setUp(self):
         insert("users",
-            { "_id" : "test", "province" : "北京市", "city" : "东城区", "area_id" : "", "password" : "admin", "name" : "admin", "city_id" : "39", "st_code" : 0, "leval" : "1", "create_time" : "2012-03-07 16:55:17.360058", "province_id" : "1" })
+            { "id" : "test", "province" : "北京市", "city" : "东城区", "area_id" : "", "password" : "admin", "name" : "admin", "city_id" : "39", "st_code" : 0, "leval" : "1", "create_time" : "2012-03-07 16:55:17.360058", "province_id" : "1" })
 		 
     def tearDown(self):
-        db_update.users.remove({'_id': 'test'}) 
+        db_update.users.remove({'id': 'test'}) 
         db_update.info.remove({'uid':'test'})
         db_update.test_info.remove()	 
 		 
@@ -34,12 +34,12 @@ class Test_account(unittest.TestCase):
 		
 		
     def test_reg_user(self):
-        reg_user({'_id':'test_reg'})
-        self.assertTrue(bool(find_one('users', {'_id':'test_reg'})))
+        reg_user({'id':'test_reg'})
+        self.assertTrue(bool(find_one('users', {'id':'test_reg'})))
 
     def test_update_user(self):
         update_user('test', {'test':True})
-        self.assertEqual(True, db.users.find_one({'_id': 'test'}).get('test'))
+        self.assertEqual(True, db.users.find_one({'id': 'test'}).get('test'))
     
 
     
@@ -55,10 +55,10 @@ class TestInfo(unittest.TestCase):
     def setUp(self):
         insert(
             'users',
-            { "_id" : "test_update", "province" : "北京市", "city" : "东城区", "area_id" : "", "password" : "admin", "name" : "admin", "city_id" : "39", "st_code" : 0, "leval" : "1", "create_time" : "2012-03-07 16:55:17.360058", "province_id" : "1" }
+            { "id" : "test_update", "province" : "北京市", "city" : "东城区", "area_id" : "", "password" : "admin", "name" : "admin", "city_id" : "39", "st_code" : 0, "leval" : "1", "create_time" : "2012-03-07 16:55:17.360058", "province_id" : "1" }
         )
     def tearDown(self):
-        remove('users', {'_id': 'test_update'}, real=True)
+        remove('users', {'id': 'test_update'}, real=True)
 
     def test_create_info(self):
         create_info('info_test', self.create_info_data, 'test')
@@ -66,21 +66,20 @@ class TestInfo(unittest.TestCase):
 
     def test_get_info_list(self):
         for i in range(100):
-            self.create_info_data.pop('_id')
             insert('test_info', self.create_info_data)
         self.assertEqual(get_info_list('test_info', {})['count'], 100)
 
 
     def test_del_info(self):
-        del_info('users', {'_id': 'test_del'}, real=True)
+        del_info('users', {'id': 'test_del'}, real=True)
         self.assertEqual(0, find('users',{'_id': 'test_del'}, return_type="cusor").count())
     
 
     def test_update_info(self):
-        update_info('users', {'_id': 'test_update'},  {'city': 'hongkong'})
+        update_info('users', {'id': 'test_update'},  {'city': 'hongkong'})
         self.assertEqual(
             'hongkong',
-            find_one('users', {'_id': 'test_update'}).get('city', '')
+            find_one('users', {'id': 'test_update'}).get('city', '')
         )
 
 if __name__ == '__main__':

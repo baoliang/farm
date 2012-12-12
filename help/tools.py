@@ -94,9 +94,9 @@ def get_query_page(session_page, query, sid, collection):
     page = query.get('page', 1)
     if not session_page or page == 1 or page > query.get('old_page', 1):
         pages = get_info_list(
-            collection, 
+            collection,
             query=query
-        ) 
+        )
         set_cach(sid+str(pages.get('page'))+'_news_pages', pages)
     else:
         pages =  get_cach(sid+str(query.get('page'))+'_news_pages') 
